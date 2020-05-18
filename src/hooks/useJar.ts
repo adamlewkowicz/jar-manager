@@ -10,9 +10,9 @@ export const useJar = () => {
 
   const addFunds = (amount: number) => {
     const nextTransaction: Transaction = {
-      id: Math.floor(Math.random() * amount),
+      id: performance.now(),
       amount,
-      date: '2015',
+      date: new Date().toISOString(),
       title: 'Wpłata środków',
     };
     setData((data) => ({
@@ -24,9 +24,9 @@ export const useJar = () => {
 
   const removeFunds = (amount: number) => {
     const nextTransaction: Transaction = {
-      id: Math.floor(Math.random() * amount),
+      id: performance.now(),
       amount,
-      date: '2015',
+      date: new Date().toISOString(),
       title: 'Wypłata środków',
     };
     setData((data) => ({

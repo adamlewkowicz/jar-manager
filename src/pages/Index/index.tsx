@@ -7,9 +7,10 @@ import { NumberInput, Button, Form } from 'carbon-components-react';
 export const HomePage = () => {
   const [todo, setTodo] = useState<any>();
   const jar = useJar();
-  const [funds, nextFunds] = useState(150);
+  const [funds, setFunds] = useState(150);
 
   const normalizedTransactions = jar.data.transactions.map((trx) => ({
+    id: String(trx.id),
     ID: trx.id,
     Kwota: trx.amount,
     Data: trx.date,
@@ -40,8 +41,8 @@ export const HomePage = () => {
           label="Wpłać środki"
           max={1000}
           min={0}
-          step={10}
           value={funds}
+          onChange={(event) => setFunds(Number(event.target.value))}
         />
         <Button kind="primary" tabIndex={0} type="submit">
           Wpłać
@@ -54,8 +55,8 @@ export const HomePage = () => {
           label="Wypłać środki"
           max={1000}
           min={0}
-          step={10}
           value={funds}
+          onChange={(event) => setFunds(Number(event.target.value))}
         />
         <Button kind="primary" tabIndex={0} type="submit">
           Wypłać

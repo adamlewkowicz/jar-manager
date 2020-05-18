@@ -22,7 +22,11 @@ export const Table = (props: TableProps) => {
     key: header,
   }));
   return (
-    <DataTable rows={props.rows} headers={normalizedHeaders}>
+    <DataTable
+      rows={props.rows}
+      headers={normalizedHeaders}
+      isSortable
+    >
       {({
         rows,
         headers,

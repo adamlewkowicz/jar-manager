@@ -9,6 +9,7 @@ export interface Transaction {
   title: string;
   date: string;
   amount: number;
+  type?: 'exchange' | 'remove' | 'add';
   currency?: Currency;
 }
 
