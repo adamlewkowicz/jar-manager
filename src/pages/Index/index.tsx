@@ -2,38 +2,56 @@ import React, { useState } from 'react';
 import css from './index.module.scss';
 import { Table } from '../../components/Table';
 import { useJar } from '../../hooks';
-import { NumberInput, Button, Form } from 'carbon-components-react';
+import {
+  NumberInput,
+  Button,
+  Form,
+  ModalWrapper,
+  FormGroup,
+  RadioButtonGroup,
+  RadioButton,
+} from 'carbon-components-react';
+import { getJarsWithTransactions } from '../../store/modules/jars/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { Transfer } from '../../components/Transfer';
+import { jarFundsAdded, jarFundsRemoved } from '../../store/actions';
 
 export const HomePage = () => {
   const [todo, setTodo] = useState<any>();
-  const jar = useJar();
   const [funds, setFunds] = useState(150);
+  const [isModalOpened, setIsModalOpened] = useState(false);
+  const jars = useSelector(getJarsWithTransactions);
+  const dispatch = useDispatch();
 
-  const normalizedTransactions = jar.data.transactions.map((trx) => ({
-    id: String(trx.id),
-    ID: trx.id,
-    Kwota: trx.amount,
-    Data: trx.date,
-    Tytuł: trx.title,
-  }));
+  const currentJar = jars[0];
+
+  const normalizedTransactions = currentJar.transactions.map(
+    (trx) => ({
+      id: String(trx.id),
+      ID: trx.id,
+      Kwota: trx.amount,
+      Data: trx.date,
+      Tytuł: trx.title,
+    }),
+  );
 
   const handleFundsAdd = (
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
-    jar.addFunds(funds);
+    dispatch(jarFundsAdded(currentJar.id, funds));
   };
 
   const handleFundsRemove = (
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
-    jar.removeFunds(funds);
+    dispatch(jarFundsRemoved(currentJar.id, funds));
   };
 
   return (
     <main>
-      Środki: {jar.data.balance}
+      Środki: {currentJar.balance}
       <Form onSubmit={handleFundsAdd}>
         <NumberInput
           id="add-funds-input"
@@ -62,6 +80,7 @@ export const HomePage = () => {
           Wypłać
         </Button>
       </Form>
+      <Transfer />
       <Table
         title="Transakcje"
         headers={['ID', 'Kwota', 'Tytuł', 'Data']}

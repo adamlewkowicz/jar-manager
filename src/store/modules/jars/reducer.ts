@@ -10,7 +10,18 @@ import {
 type JarsState = Jar[];
 
 export const jarsReducer = (
-  state: JarsState = [],
+  state: JarsState = [
+    {
+      id: 1,
+      balance: 1000,
+      transactions: [],
+    },
+    {
+      id: 2,
+      balance: 1500,
+      transactions: [],
+    },
+  ],
   action: JarAction,
 ): JarsState => {
   switch (action.type) {

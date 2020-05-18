@@ -2,7 +2,7 @@ import { StoreState } from '..';
 import { createSelector } from 'reselect';
 import { getTransactions } from '../transactions/selectors';
 
-const getJars = (state: StoreState) => state.jars;
+export const getJars = (state: StoreState) => state.jars;
 
 export const getJarsWithTransactions = createSelector(
   getJars,
