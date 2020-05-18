@@ -14,6 +14,6 @@ export interface Transaction {
   currency?: Currency;
 }
 
-type Currency = 'PLN' | 'EUR' | 'USD' | 'GBP';
+export type Currency = 'PLN' | 'EUR' | 'USD' | 'GBP';
 
 export type ValueOf<T> = T[keyof T];

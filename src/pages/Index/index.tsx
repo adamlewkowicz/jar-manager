@@ -15,6 +15,7 @@ import { getJarsWithTransactions } from '../../store/modules/jars/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { Transfer } from '../../components/Transfer';
 import { jarFundsAdded, jarFundsRemoved } from '../../store/actions';
+import { CreateJarModal } from '../../components/CreateJarModal';
 
 export const HomePage = () => {
   const [todo, setTodo] = useState<any>();
@@ -81,6 +82,7 @@ export const HomePage = () => {
         </Button>
       </Form>
       <Transfer />
+      <CreateJarModal />
       <Table
         title="Transakcje"
         headers={['ID', 'Kwota', 'Tytuł', 'Data']}
