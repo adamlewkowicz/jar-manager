@@ -1,4 +1,4 @@
-import { combineReducers } from 'react-redux';
+import { combineReducers } from 'redux';
 import { jarsReducer } from './jars/reducer';
 import { transactionsReducer } from './transactions/reducer';
 

@@ -4,9 +4,11 @@ import {
   JAR_FUNDS_TRANSFERRED,
   JAR_FUNDS_REMOVED,
 } from './consts';
+import { Jar } from '../../../types';
 
-export const jarCreated = () => ({
+export const jarCreated = (jar: Jar) => ({
   type: JAR_CREATED,
+  payload: jar,
 });
 
 export const jarFundsAdded = (jarId: number, amount: number) => ({
