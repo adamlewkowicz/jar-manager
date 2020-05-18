@@ -9,12 +9,12 @@ export const HomePage = () => {
   const jar = useJar();
   const [funds, nextFunds] = useState(150);
 
-  const transactionData = {
-    ID: 1,
-    Kwota: 200,
-    Data: '2015-01-01',
-    Tytuł: 'Payment',
-  };
+  const normalizedTransactions = jar.data.transactions.map((trx) => ({
+    ID: trx.id,
+    Kwota: trx.amount,
+    Data: trx.date,
+    Tytuł: trx.title,
+  }));
 
   const handleFundsAdd = (
     event: React.FormEvent<HTMLFormElement>,
@@ -27,7 +27,7 @@ export const HomePage = () => {
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
-    jar.addFunds(funds);
+    jar.removeFunds(funds);
   };
 
   return (
@@ -64,7 +64,7 @@ export const HomePage = () => {
       <Table
         title="Transakcje"
         headers={['ID', 'Kwota', 'Tytuł', 'Data']}
-        rows={[transactionData]}
+        rows={normalizedTransactions}
       />
     </main>
   );

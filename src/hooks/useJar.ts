@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Jar } from '../types';
+import { Jar, Transaction } from '../types';
 
 export const useJar = () => {
   const [data, setData] = useState<Jar>({
@@ -9,11 +9,31 @@ export const useJar = () => {
   });
 
   const addFunds = (amount: number) => {
-    setData((data) => ({ ...data, balance: data.balance + amount }));
+    const nextTransaction: Transaction = {
+      id: Math.floor(Math.random() * amount),
+      amount,
+      date: '2015',
+      title: 'Wpłata środków',
+    };
+    setData((data) => ({
+      ...data,
+      transactions: [nextTransaction, ...data.transactions],
+      balance: data.balance + amount,
+    }));
   };
 
   const removeFunds = (amount: number) => {
-    setData((data) => ({ ...data, balance: data.balance - amount }));
+    const nextTransaction: Transaction = {
+      id: Math.floor(Math.random() * amount),
+      amount,
+      date: '2015',
+      title: 'Wypłata środków',
+    };
+    setData((data) => ({
+      ...data,
+      transactions: [nextTransaction, ...data.transactions],
+      balance: data.balance - amount,
+    }));
   };
 
   return { addFunds, removeFunds, data };
