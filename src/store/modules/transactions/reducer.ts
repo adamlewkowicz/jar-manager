@@ -6,12 +6,10 @@ interface JarTransaction extends Transaction {
   jarId: number;
 }
 
-interface TransactionsState {
-  data: JarTransaction[];
-}
+type TransactionsState = JarTransaction[];
 
 export const transactionsReducer = (
-  state: TransactionsState,
+  state: TransactionsState = [],
   action: JarAction,
 ): TransactionsState => {
   switch (action.type) {
@@ -24,10 +22,7 @@ export const transactionsReducer = (
         title: 'Wpłata środków',
       };
 
-      return {
-        ...state,
-        data: [nextTransaction, ...state.data],
-      };
+      return [nextTransaction, ...state];
     }
     case JAR_FUNDS_REMOVED: {
       const nextTransaction: JarTransaction = {
@@ -38,10 +33,7 @@ export const transactionsReducer = (
         title: 'Wypłata środków',
       };
 
-      return {
-        ...state,
-        data: [nextTransaction, ...state.data],
-      };
+      return [nextTransaction, ...state];
     }
     default:
       return state;
