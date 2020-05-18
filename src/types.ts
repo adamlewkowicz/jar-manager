@@ -4,8 +4,9 @@ export interface Jar {
   transactions: Transaction[];
 }
 
-interface Transaction {
+export interface Transaction {
   id: number;
+  title: string;
   date: string;
   amount: number;
   currency?: Currency;

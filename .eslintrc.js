@@ -27,6 +27,8 @@ module.exports = {
     'linebreak-style': 0,
     'import/prefer-default-export': 0,
     'implicit-arrow-linebreak': 0,
-    'import/no-unresolved': 1,
+    'import/no-unresolved': 0,
+    'react/prop-types': 0,
+    'import/extensions': 0,
   },
 };
