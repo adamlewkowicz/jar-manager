@@ -1,0 +1,12 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "files.associations": {
+    // "*.css": "postcss",
+    // "*.sass": "sass"
+  },
+  "eslint.enable": true,
+  "[handlebars]": { "editor.formatOnSave": false }
+}
