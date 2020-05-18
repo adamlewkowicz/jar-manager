@@ -15,11 +15,13 @@ export const jarsReducer = (
       id: 1,
       balance: 1000,
       transactions: [],
+      currency: 'PLN',
     },
     {
       id: 2,
       balance: 1500,
       transactions: [],
+      currency: 'PLN',
     },
   ],
   action: JarAction,

@@ -2,6 +2,7 @@ export interface Jar {
   id: number;
   balance: number;
   transactions: Transaction[];
+  currency: Currency;
 }
 
 export interface Transaction {

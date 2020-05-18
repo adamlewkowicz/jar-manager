@@ -51,7 +51,7 @@ export const HomePage = () => {
 
   return (
     <main>
-      Środki: {currentJar.balance}
+      Środki: {currentJar.balance} {currentJar.currency}
       <Form onSubmit={handleFundsAdd}>
         <NumberInput
           id="add-funds-input"

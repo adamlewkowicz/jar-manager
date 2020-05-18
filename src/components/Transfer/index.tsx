@@ -9,14 +9,16 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getJars } from '../../store/modules/jars/selectors';
 import { jarFundsTransferred } from '../../store/actions';
+import { Jar } from '../../types';
 
 interface TransferProps {}
 
 export const Transfer = (props: TransferProps) => {
-  const jars = useSelector(getJars);
   const dispatch = useDispatch();
+  const jars = useSelector(getJars);
+  const currentJar = jars[0];
   const [selectedJarId, setSelectedJarId] = useState<number | null>(
-    jars[0]?.id ?? null,
+    null,
   );
   const [transferAmount, setTransferAmount] = useState(0);
 
@@ -32,6 +34,19 @@ export const Transfer = (props: TransferProps) => {
     return true;
   };
 
+  const isTransactionNotAllowed = (
+    fromJar: Jar,
+    toJar: Jar,
+  ): boolean => {
+    const isSameJar = fromJar.id === currentJar.id;
+    const isNotEqualCurrency = fromJar.currency !== toJar.currency;
+
+    if (isSameJar || isNotEqualCurrency) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <ModalWrapper
       buttonTriggerText="Przelej środki na inny słoik"
@@ -40,6 +55,7 @@ export const Transfer = (props: TransferProps) => {
       primaryButtonText="Przelej"
       secondaryButtonText="Anuluj"
       handleSubmit={handleTransfer}
+      primaryButtonDisabled={selectedJarId === null}
     >
       <Slider
         id="slider"
@@ -61,8 +77,9 @@ export const Transfer = (props: TransferProps) => {
           {jars.map((jar) => (
             <RadioButton
               key={jar.id}
-              labelText={`Słoik ${jar.id} - ${jar.balance} PLN`}
+              labelText={`Słoik ${jar.id} - ${jar.balance} ${jar.currency}`}
               value={String(jar.id)}
+              disabled={isTransactionNotAllowed(currentJar, jar)}
             />
           ))}
         </RadioButtonGroup>
