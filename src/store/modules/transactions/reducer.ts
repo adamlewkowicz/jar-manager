@@ -25,6 +25,7 @@ export const transactionsReducer = (
         amount: action.payload.amount,
         date: new Date().toISOString(),
         title: 'Wpłata środków',
+        type: 'add',
       };
 
       return [nextTransaction, ...state];
@@ -36,6 +37,7 @@ export const transactionsReducer = (
         amount: action.payload.amount,
         date: new Date().toISOString(),
         title: 'Wypłata środków',
+        type: 'remove',
       };
 
       return [nextTransaction, ...state];
@@ -47,6 +49,7 @@ export const transactionsReducer = (
         amount: action.payload.amount,
         date: new Date().toISOString(),
         title: 'Transakcja środków',
+        type: 'exchange',
       };
       const toJarTransaction: JarTransaction = {
         id: generateId(),
@@ -54,6 +57,7 @@ export const transactionsReducer = (
         amount: action.payload.amount,
         date: new Date().toISOString(),
         title: 'Transakcja środków',
+        type: 'exchange',
       };
 
       return [toJarTransaction, fromJarTransaction, ...state];

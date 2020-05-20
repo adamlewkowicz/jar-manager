@@ -11,7 +11,7 @@ export interface Transaction {
   date: string;
   amount: number;
   jarId: number;
-  type?: 'exchange' | 'remove' | 'add';
+  type: 'exchange' | 'remove' | 'add';
   currency?: Currency;
 }
 
