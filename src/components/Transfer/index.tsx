@@ -11,6 +11,7 @@ import { jarFundsTransferred } from '../../store/actions';
 import { Jar } from '../../types';
 import { useTimeoutBool } from '../../hooks/useTimeoutBool';
 import { RadioGroup } from '../RadioGroup';
+import { Modal } from '../Modal';
 
 interface TransferProps {
   jars: Jar[];
@@ -39,8 +40,6 @@ export const Transfer = (props: TransferProps) => {
     );
 
     showNotification();
-
-    return true;
   };
 
   const isTransactionNotAllowed = (targetJar: Jar): boolean => {
@@ -54,16 +53,23 @@ export const Transfer = (props: TransferProps) => {
     return false;
   };
 
+  const checkedJars = props.jars.map((jar) => ({
+    isTransferAllowed: !isTransactionNotAllowed(jar),
+    data: jar,
+  }));
+
+  const allowedTransactionJars = checkedJars.filter(
+    (jar) => jar.isTransferAllowed,
+  );
+
   return (
     <>
-      <ModalWrapper
-        buttonTriggerText="Przelej środki na inny słoik"
-        modalHeading="Przelej środki na inny słoik"
-        modalLabel="Transfer środków"
-        primaryButtonText="Przelej"
-        secondaryButtonText="Anuluj"
-        handleSubmit={handleTransfer}
-        primaryButtonDisabled={selectedJarId === null}
+      <Modal
+        title="Przelej środki na inny słoik"
+        label="Transfer środków"
+        confirmText="Przelej"
+        isDisabled={selectedJarId === null}
+        onSubmit={handleTransfer}
       >
         <Slider
           id="slider"
@@ -93,7 +99,7 @@ export const Transfer = (props: TransferProps) => {
           title={`Możesz przelać środki jedynie na słoik o różnym id (innym niż ${props.currentJar.id}), oraz o takiej samej walucie (${props.currentJar.currency}).`}
           hideCloseButton
         />
-      </ModalWrapper>
+      </Modal>
       {isNotificationShown && (
         <ToastNotification
           kind="success"
