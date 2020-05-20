@@ -22,8 +22,7 @@ export const JarPage = () => {
   const currentJar = jars.find((jar) => jar.id === Number(jarId));
 
   if (!currentJar) {
-    return null;
-    // throw new Error('Jar not found');
+    throw new Error(`Nie znaleziono słoika o id ${jarId}`);
   }
 
   const handleFundsAdd = (funds: number) => {
@@ -45,7 +44,7 @@ export const JarPage = () => {
         onFundsAdd={handleFundsAdd}
         onFundsRemove={handleFundsRemove}
       />
-      <Transfer />
+      <Transfer jars={jars} currentJar={currentJar} />
       <TransactionsTable transactions={currentJar.transactions} />
     </main>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   ModalWrapper,
   RadioButton,
@@ -6,19 +6,19 @@ import {
   InlineNotification,
   ToastNotification,
 } from 'carbon-components-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getJars } from '../../store/modules/jars/selectors';
+import { useDispatch } from 'react-redux';
 import { jarFundsTransferred } from '../../store/actions';
 import { Jar } from '../../types';
 import { useTimeoutBool } from '../../hooks/useTimeoutBool';
 import { RadioGroup } from '../RadioGroup';
 
-interface TransferProps {}
+interface TransferProps {
+  jars: Jar[];
+  currentJar: Jar;
+}
 
 export const Transfer = (props: TransferProps) => {
   const dispatch = useDispatch();
-  const jars = useSelector(getJars);
-  const currentJar = jars[0];
   const [selectedJarId, setSelectedJarId] = useState<number | null>(
     null,
   );
@@ -44,9 +44,9 @@ export const Transfer = (props: TransferProps) => {
   };
 
   const isTransactionNotAllowed = (targetJar: Jar): boolean => {
-    const isSameJar = targetJar.id === currentJar.id;
+    const isSameJar = targetJar.id === props.currentJar.id;
     const isNotEqualCurrency =
-      targetJar.currency !== currentJar.currency;
+      targetJar.currency !== props.currentJar.currency;
 
     if (isSameJar || isNotEqualCurrency) {
       return true;
@@ -69,7 +69,7 @@ export const Transfer = (props: TransferProps) => {
           id="slider"
           labelText="Kwota jaką chcesz przelać"
           min={1}
-          max={jars[0]?.balance}
+          max={props.currentJar.balance}
           step={1}
           value={transferAmount}
           onChange={(event) => setTransferAmount(event.value)}
@@ -79,7 +79,7 @@ export const Transfer = (props: TransferProps) => {
           value={String(selectedJarId)}
           onChange={(jarId) => setSelectedJarId(Number(jarId))}
         >
-          {jars.map((jar) => (
+          {props.jars.map((jar) => (
             <RadioButton
               key={jar.id}
               labelText={`Słoik ${jar.id} - ${jar.balance} ${jar.currency}`}
@@ -90,7 +90,7 @@ export const Transfer = (props: TransferProps) => {
         </RadioGroup>
         <InlineNotification
           kind="warning"
-          title={`Możesz przelać środki jedynie na słoik o różnym id (innym niż ${currentJar.id}), oraz o takiej samej walucie (${currentJar.currency}).`}
+          title={`Możesz przelać środki jedynie na słoik o różnym id (innym niż ${props.currentJar.id}), oraz o takiej samej walucie (${props.currentJar.currency}).`}
           hideCloseButton
         />
       </ModalWrapper>
