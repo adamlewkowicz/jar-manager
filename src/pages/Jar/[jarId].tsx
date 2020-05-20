@@ -8,7 +8,6 @@ import {
   jarFundsRemoved,
   jarCreated,
 } from '../../store/actions';
-import { CreateJarModal } from '../../components/CreateJarModal';
 import { Currency } from '../../types';
 import { TransactionsTable } from '../../components/TransactionsTable';
 import { JarFundsActions } from '../../components/JarFundsActions';
@@ -47,7 +46,6 @@ export const JarPage = () => {
         onFundsRemove={handleFundsRemove}
       />
       <Transfer />
-      <CreateJarModal onCreate={handleJarCreate} />
       <TransactionsTable transactions={currentJar.transactions} />
     </main>
   );
