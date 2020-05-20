@@ -5,6 +5,7 @@ import {
 } from '../jars/consts';
 import { Transaction } from '../../../types';
 import { JarAction } from '../jars/reducer';
+import { generateId } from '../../../utils';
 
 interface JarTransaction extends Transaction {
   jarId: number;
@@ -19,7 +20,7 @@ export const transactionsReducer = (
   switch (action.type) {
     case JAR_FUNDS_ADDED: {
       const nextTransaction: JarTransaction = {
-        id: performance.now(),
+        id: generateId(),
         jarId: action.meta.jarId,
         amount: action.payload.amount,
         date: new Date().toISOString(),
@@ -30,7 +31,7 @@ export const transactionsReducer = (
     }
     case JAR_FUNDS_REMOVED: {
       const nextTransaction: JarTransaction = {
-        id: performance.now(),
+        id: generateId(),
         jarId: action.meta.jarId,
         amount: action.payload.amount,
         date: new Date().toISOString(),
@@ -41,14 +42,14 @@ export const transactionsReducer = (
     }
     case JAR_FUNDS_TRANSFERRED: {
       const fromJarTransaction: JarTransaction = {
-        id: performance.now(),
+        id: generateId(),
         jarId: action.meta.fromJarId,
         amount: action.payload.amount,
         date: new Date().toISOString(),
         title: 'Transakcja środków',
       };
       const toJarTransaction: JarTransaction = {
-        id: performance.now(),
+        id: generateId(),
         jarId: action.meta.toJarId,
         amount: action.payload.amount,
         date: new Date().toISOString(),
