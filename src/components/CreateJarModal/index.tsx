@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import css from './index.module.scss';
 import {
   ModalWrapper,
-  TextInput,
   NumberInput,
+  RadioButton,
 } from 'carbon-components-react';
-import { Jar, Currency } from '../../types';
-import { Dropdown } from '../Dropdown';
+import { Currency } from '../../types';
+import { RadioGroup } from '../RadioGroup';
+import { CURRENCIES } from '../../common/consts';
 
 interface CreateJarModalProps {
   onCreate: (currency: Currency, balance: number) => void;
@@ -41,12 +42,19 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
         value={balance}
         onChange={(event) => setBalance(Number(event.target.value))}
       />
-      <Dropdown
-        titleText="Wybierz walutę"
-        label="Dropdown menu options"
-        options={['PLN', 'EUR']}
+      <RadioGroup
+        title="Wybierz walutę"
+        value={currency}
         onChange={(currency) => setCurrency(currency)}
-      />
+      >
+        {CURRENCIES.map((currency) => (
+          <RadioButton
+            key={currency}
+            labelText={currency}
+            value={currency}
+          />
+        ))}
+      </RadioGroup>
     </ModalWrapper>
   );
 };

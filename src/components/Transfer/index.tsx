@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
 import {
   ModalWrapper,
-  RadioButtonGroup,
-  FormGroup,
   RadioButton,
   Slider,
   InlineNotification,
@@ -13,6 +11,7 @@ import { getJars } from '../../store/modules/jars/selectors';
 import { jarFundsTransferred } from '../../store/actions';
 import { Jar } from '../../types';
 import { useTimeoutBool } from '../../hooks/useTimeoutBool';
+import { RadioGroup } from '../RadioGroup';
 
 interface TransferProps {}
 
@@ -75,24 +74,20 @@ export const Transfer = (props: TransferProps) => {
           value={transferAmount}
           onChange={(event) => setTransferAmount(event.value)}
         />
-        <FormGroup legendText="Słoik na który chcesz wpłacić środki">
-          <RadioButtonGroup
-            orientation="vertical"
-            labelPosition="right"
-            name="radio-button-group"
-            valueSelected={String(selectedJarId)}
-            onChange={(jarId) => setSelectedJarId(Number(jarId))}
-          >
-            {jars.map((jar) => (
-              <RadioButton
-                key={jar.id}
-                labelText={`Słoik ${jar.id} - ${jar.balance} ${jar.currency}`}
-                value={String(jar.id)}
-                disabled={isTransactionNotAllowed(jar)}
-              />
-            ))}
-          </RadioButtonGroup>
-        </FormGroup>
+        <RadioGroup
+          title="Wybierz słoik na który chcesz wpłacić środki"
+          value={String(selectedJarId)}
+          onChange={(jarId) => setSelectedJarId(Number(jarId))}
+        >
+          {jars.map((jar) => (
+            <RadioButton
+              key={jar.id}
+              labelText={`Słoik ${jar.id} - ${jar.balance} ${jar.currency}`}
+              value={String(jar.id)}
+              disabled={isTransactionNotAllowed(jar)}
+            />
+          ))}
+        </RadioGroup>
         <InlineNotification
           kind="warning"
           title={`Możesz przelać środki jedynie na słoik o różnym id (innym niż ${currentJar.id}), oraz o takiej samej walucie (${currentJar.currency}).`}

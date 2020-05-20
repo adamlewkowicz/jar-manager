@@ -1,3 +1,5 @@
+import { CURRENCIES } from './common/consts';
+
 export interface Jar {
   id: number;
   balance: number;
@@ -15,6 +17,6 @@ export interface Transaction {
   currency?: Currency;
 }
 
-export type Currency = 'PLN' | 'EUR' | 'USD' | 'GBP';
+export type Currency = typeof CURRENCIES[number];
 
 export type ValueOf<T> = T[keyof T];
