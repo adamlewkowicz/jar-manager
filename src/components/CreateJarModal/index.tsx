@@ -30,6 +30,7 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
       secondaryButtonText="Anuluj"
       handleSubmit={handleSubmit}
       shouldCloseAfterSubmit
+      buttonTriggerClassName={css.button}
     >
       <NumberInput
         id="ID"
