@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
 import css from './index.module.scss';
-import { Table } from '../../components/Table';
-import { useJar } from '../../hooks';
-import {
-  NumberInput,
-  Button,
-  Form,
-  ModalWrapper,
-  FormGroup,
-  RadioButtonGroup,
-  RadioButton,
-} from 'carbon-components-react';
 import { getJarsWithTransactions } from '../../store/modules/jars/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { Transfer } from '../../components/Transfer';
@@ -25,9 +14,7 @@ import { TransactionsTable } from '../../components/TransactionsTable';
 import { JarFundsActions } from '../../components/JarFundsActions';
 import { useRouter } from 'next/router';
 
-export const HomePage = () => {
-  const [todo, setTodo] = useState<any>();
-  const [isModalOpened, setIsModalOpened] = useState(false);
+export const JarPage = () => {
   const jars = useSelector(getJarsWithTransactions);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -66,4 +53,4 @@ export const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default JarPage;
