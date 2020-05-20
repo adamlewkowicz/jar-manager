@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from '../Table';
 import { Transaction } from '../../types';
+import { formatDate } from '../../utils';
 
 interface AllTransactionsTableProps {
   transactions: Transaction[];
@@ -15,7 +16,7 @@ export const AllTransactionsTable = React.memo(
         `Słoik ${transaction.jarId}`,
         transaction.amount,
         transaction.title,
-        transaction.date,
+        `${formatDate(transaction.date)}`,
       ],
     );
 
