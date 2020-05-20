@@ -4,11 +4,14 @@ import {
   JAR_FUNDS_TRANSFERRED,
   JAR_FUNDS_REMOVED,
 } from './consts';
-import { Jar } from '../../../types';
+import { Jar, Currency } from '../../../types';
 
-export const jarCreated = (jar: Jar) => ({
+export const jarCreated = (data: {
+  currency: Currency;
+  balance: number;
+}) => ({
   type: JAR_CREATED,
-  payload: jar,
+  payload: data,
 });
 
 export const jarFundsAdded = (jarId: number, amount: number) => ({

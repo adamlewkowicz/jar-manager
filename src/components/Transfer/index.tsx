@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   ModalWrapper,
   RadioButtonGroup,
   FormGroup,
   RadioButton,
   Slider,
+  InlineNotification,
+  ToastNotification,
 } from 'carbon-components-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getJars } from '../../store/modules/jars/selectors';
@@ -21,6 +23,7 @@ export const Transfer = (props: TransferProps) => {
     null,
   );
   const [transferAmount, setTransferAmount] = useState(0);
+  const toastRef = useRef<ToastNotification | null>(null);
 
   const handleTransfer = () => {
     dispatch(
@@ -34,12 +37,10 @@ export const Transfer = (props: TransferProps) => {
     return true;
   };
 
-  const isTransactionNotAllowed = (
-    fromJar: Jar,
-    toJar: Jar,
-  ): boolean => {
-    const isSameJar = fromJar.id === currentJar.id;
-    const isNotEqualCurrency = fromJar.currency !== toJar.currency;
+  const isTransactionNotAllowed = (targetJar: Jar): boolean => {
+    const isSameJar = targetJar.id === currentJar.id;
+    const isNotEqualCurrency =
+      targetJar.currency !== currentJar.currency;
 
     if (isSameJar || isNotEqualCurrency) {
       return true;
@@ -79,11 +80,23 @@ export const Transfer = (props: TransferProps) => {
               key={jar.id}
               labelText={`Słoik ${jar.id} - ${jar.balance} ${jar.currency}`}
               value={String(jar.id)}
-              disabled={isTransactionNotAllowed(currentJar, jar)}
+              disabled={isTransactionNotAllowed(jar)}
             />
           ))}
         </RadioButtonGroup>
       </FormGroup>
+      <InlineNotification
+        kind="warning"
+        title={`Możesz przelać środki jedynie na słoik o różnym id (innym niż ${currentJar.id}), oraz takiej samej walucie (${currentJar.currency}).`}
+        hideCloseButton
+      />
+      <ToastNotification
+        kind="success"
+        caption="00:00:00 AM"
+        timeout={2500}
+        title="Wykonano transakcję"
+        // ref={toastRef}
+      />
     </ModalWrapper>
   );
 };

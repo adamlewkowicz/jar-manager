@@ -6,12 +6,20 @@ import {
   NumberInput,
 } from 'carbon-components-react';
 import { Jar, Currency } from '../../types';
+import { Dropdown } from '../Dropdown';
 
-interface CreateJarModalProps {}
+interface CreateJarModalProps {
+  onCreate: (currency: Currency, balance: number) => void;
+}
 
 export const CreateJarModal = (props: CreateJarModalProps) => {
   const [balance, setBalance] = useState(250);
   const [currency, setCurrency] = useState<Currency>('PLN');
+
+  const handleSubmit = (): boolean => {
+    props.onCreate(currency, balance);
+    return true;
+  };
 
   return (
     <ModalWrapper
@@ -20,7 +28,8 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
       modalLabel="Utwórz słoik"
       primaryButtonText="Utwórz"
       secondaryButtonText="Anuluj"
-      handleSubmit={() => true}
+      handleSubmit={handleSubmit}
+      shouldCloseAfterSubmit
     >
       <NumberInput
         id="ID"
@@ -30,6 +39,12 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
         min={0}
         value={balance}
         onChange={(event) => setBalance(Number(event.target.value))}
+      />
+      <Dropdown
+        titleText="Wybierz walutę"
+        label="Dropdown menu options"
+        options={['PLN', 'EUR']}
+        onChange={(currency) => setCurrency(currency)}
       />
     </ModalWrapper>
   );

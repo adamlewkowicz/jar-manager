@@ -28,7 +28,12 @@ export const jarsReducer = (
 ): JarsState => {
   switch (action.type) {
     case JAR_CREATED:
-      return state;
+      const nextJar: Jar = {
+        id: state.length + 1,
+        transactions: [],
+        ...action.payload,
+      };
+      return [...state, nextJar];
     case JAR_FUNDS_ADDED:
       return state.map((jar) => {
         if (jar.id === action.meta.jarId) {

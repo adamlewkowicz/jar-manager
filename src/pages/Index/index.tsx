@@ -14,8 +14,13 @@ import {
 import { getJarsWithTransactions } from '../../store/modules/jars/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { Transfer } from '../../components/Transfer';
-import { jarFundsAdded, jarFundsRemoved } from '../../store/actions';
+import {
+  jarFundsAdded,
+  jarFundsRemoved,
+  jarCreated,
+} from '../../store/actions';
 import { CreateJarModal } from '../../components/CreateJarModal';
+import { Currency } from '../../types';
 
 export const HomePage = () => {
   const [todo, setTodo] = useState<any>();
@@ -50,6 +55,10 @@ export const HomePage = () => {
     dispatch(jarFundsRemoved(currentJar.id, funds));
   };
 
+  const handleJarCreate = (currency: Currency, balance: number) => {
+    dispatch(jarCreated({ currency, balance }));
+  };
+
   return (
     <main>
       Środki: {currentJar.balance} {currentJar.currency}
@@ -82,7 +91,7 @@ export const HomePage = () => {
         </Button>
       </Form>
       <Transfer />
-      <CreateJarModal />
+      <CreateJarModal onCreate={handleJarCreate} />
       <Table
         title="Transakcje"
         headers={['ID', 'Kwota', 'Tytuł', 'Data']}
