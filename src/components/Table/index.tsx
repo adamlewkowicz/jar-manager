@@ -13,17 +13,24 @@ import {
 interface TableProps {
   title: string;
   headers: string[];
-  rows: any;
+  data: unknown[];
 }
 
 export const Table = (props: TableProps) => {
-  const normalizedHeaders = props.headers.map((header, index) => ({
+  const normalizedHeaders = props.headers.map((header) => ({
     header,
     key: header,
   }));
+  const normalizedRows = props.data.map((row) => ({
+    id: String(row[0]),
+    ...Object.fromEntries(
+      props.headers.map((header, index) => [header, row[index + 1]]),
+    ),
+  }));
+
   return (
     <DataTable
-      rows={props.rows}
+      rows={normalizedRows}
       headers={normalizedHeaders}
       isSortable
     >

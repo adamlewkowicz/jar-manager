@@ -21,6 +21,7 @@ import {
 } from '../../store/actions';
 import { CreateJarModal } from '../../components/CreateJarModal';
 import { Currency } from '../../types';
+import { TransactionsTable } from '../../components/TransactionsTable';
 
 export const HomePage = () => {
   const [todo, setTodo] = useState<any>();
@@ -30,16 +31,6 @@ export const HomePage = () => {
   const dispatch = useDispatch();
 
   const currentJar = jars[0];
-
-  const normalizedTransactions = currentJar.transactions.map(
-    (trx) => ({
-      id: String(trx.id),
-      ID: trx.id,
-      Kwota: trx.amount,
-      Data: trx.date,
-      Tytuł: trx.title,
-    }),
-  );
 
   const handleFundsAdd = (
     event: React.FormEvent<HTMLFormElement>,
@@ -92,11 +83,7 @@ export const HomePage = () => {
       </Form>
       <Transfer />
       <CreateJarModal onCreate={handleJarCreate} />
-      <Table
-        title="Transakcje"
-        headers={['ID', 'Kwota', 'Tytuł', 'Data']}
-        rows={normalizedTransactions}
-      />
+      <TransactionsTable transactions={currentJar.transactions} />
     </main>
   );
 };
