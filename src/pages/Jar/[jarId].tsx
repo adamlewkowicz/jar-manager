@@ -23,14 +23,22 @@ import { CreateJarModal } from '../../components/CreateJarModal';
 import { Currency } from '../../types';
 import { TransactionsTable } from '../../components/TransactionsTable';
 import { JarFundsActions } from '../../components/JarFundsActions';
+import { useRouter } from 'next/router';
 
 export const HomePage = () => {
   const [todo, setTodo] = useState<any>();
   const [isModalOpened, setIsModalOpened] = useState(false);
   const jars = useSelector(getJarsWithTransactions);
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { jarId } = router.query;
 
-  const currentJar = jars[0];
+  const currentJar = jars.find((jar) => jar.id === Number(jarId));
+
+  if (!currentJar) {
+    return null;
+    // throw new Error('Jar not found');
+  }
 
   const handleFundsAdd = (funds: number) => {
     dispatch(jarFundsAdded(currentJar.id, funds));
