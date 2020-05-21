@@ -1,17 +1,12 @@
 import React from 'react';
 import css from './index.module.scss';
-import { Transaction } from '../../types';
-import { csx } from '../../utils';
+import { Transaction } from '../../../types';
+import { csx } from '../../../utils';
 
 type TransactionAmountProps = {} & Transaction;
 
 export const TransactionAmount = (props: TransactionAmountProps) => {
-  const operationSign =
-    props.type === 'exchange'
-      ? ''
-      : props.type === 'remove'
-      ? '-'
-      : '+';
+  const operationSign = SIGN_TYPE[props.type];
 
   return (
     <span
@@ -24,4 +19,9 @@ export const TransactionAmount = (props: TransactionAmountProps) => {
       {props.amount}
     </span>
   );
+};
+
+const SIGN_TYPE = {
+  add: '+',
+  remove: '-',
 };

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Table } from '../Table';
 import { Transaction, ValueOf } from '../../types';
 import { formatDate } from '../../utils';
-import { TransactionAmount } from '../TransactionAmount';
+import { TransactionAmount } from './TransactionAmount';
 import { JarLink } from '../JarLink';
 
 interface TransactionsTableProps {
