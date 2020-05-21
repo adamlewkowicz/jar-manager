@@ -1,4 +1,12 @@
 .container {
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.button {
+  width: 100%;
+}
+
+.form_item {
+  margin: 8px 48px 0 0;
 }

@@ -28,29 +28,39 @@ export const JarFundsActions = (props: JarFundsActionsProps) => {
 
   return (
     <div className={css.container}>
-      <Form onSubmit={handleFundsAdd}>
+      <Form onSubmit={handleFundsAdd} className={css.form_item}>
         <NumberInput
           id="add-funds-input"
           label="Wpłać środki"
-          max={1000}
+          max={10000}
           min={0}
           value={fundsToAdd}
           onChange={setFundsToAdd}
         />
-        <Button kind="primary" tabIndex={0} type="submit">
+        <Button
+          kind="primary"
+          tabIndex={0}
+          type="submit"
+          className={css.button}
+        >
           Wpłać
         </Button>
       </Form>
-      <Form onSubmit={handleFundsRemove}>
+      <Form onSubmit={handleFundsRemove} className={css.form_item}>
         <NumberInput
           id="remove-funds-input"
           label="Wypłać środki"
-          max={1000}
+          max={10000}
           min={0}
           value={fundsToRemove}
           onChange={setFundsToRemove}
         />
-        <Button kind="primary" tabIndex={0} type="submit">
+        <Button
+          kind="primary"
+          tabIndex={0}
+          type="submit"
+          className={css.button}
+        >
           Wypłać
         </Button>
       </Form>

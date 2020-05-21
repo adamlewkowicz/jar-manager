@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import css from './index.module.scss';
-import {
-  ModalWrapper,
-  NumberInput,
-  RadioButton,
-} from 'carbon-components-react';
+import { NumberInput, RadioButton } from 'carbon-components-react';
 import { Currency } from '../../types';
 import { RadioGroup } from '../RadioGroup';
 import { CURRENCIES } from '../../common/consts';
+import { Modal } from '../Modal';
 
 interface CreateJarModalProps {
   onCreate: (currency: Currency, balance: number) => void;
@@ -17,25 +13,17 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
   const [balance, setBalance] = useState(250);
   const [currency, setCurrency] = useState<Currency>('PLN');
 
-  const handleSubmit = (): boolean => {
-    props.onCreate(currency, balance);
-    return true;
-  };
+  const handleSubmit = () => props.onCreate(currency, balance);
 
   return (
-    <ModalWrapper
-      buttonTriggerText="Utwórz słoik"
-      modalHeading="Tworzenie nowego słoika"
-      modalLabel="Utwórz słoik"
-      primaryButtonText="Utwórz"
-      secondaryButtonText="Anuluj"
-      handleSubmit={handleSubmit}
-      shouldCloseAfterSubmit
-      buttonTriggerClassName={css.button}
+    <Modal
+      title="Utwórz słoik"
+      label="Tworzenie nowego słoika"
+      confirmText="Utwórz"
+      onSubmit={handleSubmit}
     >
       <NumberInput
         id="ID"
-        // invalidText="Nieprawidłowa ilość. Maksymalna wartość to 1000."
         label="Środki"
         max={10000}
         min={0}
@@ -43,6 +31,7 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
         onChange={(event) => setBalance(Number(event.target.value))}
       />
       <RadioGroup
+        name="select-currency"
         title="Wybierz walutę"
         value={currency}
         onChange={(currency) => setCurrency(currency)}
@@ -55,6 +44,6 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
           />
         ))}
       </RadioGroup>
-    </ModalWrapper>
+    </Modal>
   );
 };

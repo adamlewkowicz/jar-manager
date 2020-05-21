@@ -9,6 +9,7 @@ import {
   TableHead,
   TableHeader,
 } from 'carbon-components-react';
+import css from './index.module.scss';
 
 interface TableProps {
   title: string;
@@ -29,48 +30,52 @@ export const Table = (props: TableProps) => {
   }));
 
   return (
-    <DataTable
-      rows={normalizedRows}
-      headers={normalizedHeaders}
-      isSortable
-    >
-      {({
-        rows,
-        headers,
-        getRowProps,
-        getTableProps,
-        getTableContainerProps,
-        getHeaderProps,
-      }) => (
-        <TableContainer
-          title={props.title}
-          {...getTableContainerProps()}
-        >
-          <NativeTable {...getTableProps()}>
-            <TableHead>
-              <TableRow>
-                {headers.map((header) => (
-                  <TableHeader
-                    key={header.key}
-                    {...getHeaderProps({ header })}
-                  >
-                    {header.header}
-                  </TableHeader>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.id} {...getRowProps({ row })}>
-                  {row.cells.map((cell) => (
-                    <TableCell key={cell.id}>{cell.value}</TableCell>
+    <div className={css.container}>
+      <DataTable
+        rows={normalizedRows}
+        headers={normalizedHeaders}
+        isSortable
+      >
+        {({
+          rows,
+          headers,
+          getRowProps,
+          getTableProps,
+          getTableContainerProps,
+          getHeaderProps,
+        }) => (
+          <TableContainer
+            title={props.title}
+            {...getTableContainerProps()}
+          >
+            <NativeTable {...getTableProps()}>
+              <TableHead>
+                <TableRow>
+                  {headers.map((header) => (
+                    <TableHeader
+                      key={header.key}
+                      {...getHeaderProps({ header })}
+                    >
+                      {header.header}
+                    </TableHeader>
                   ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </NativeTable>
-        </TableContainer>
-      )}
-    </DataTable>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.id} {...getRowProps({ row })}>
+                    {row.cells.map((cell) => (
+                      <TableCell key={cell.id}>
+                        {cell.value}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </NativeTable>
+          </TableContainer>
+        )}
+      </DataTable>
+    </div>
   );
 };

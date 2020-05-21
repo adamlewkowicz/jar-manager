@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { ModalWrapper } from 'carbon-components-react';
+import css from './index.module.scss';
 
 interface ModalProps {
   title: string;
@@ -25,6 +26,8 @@ export const Modal = (props: ModalProps) => {
       handleSubmit={handleSubmit}
       primaryButtonDisabled={props.isDisabled}
       secondaryButtonText="Anuluj"
+      buttonTriggerClassName={css.button}
+      shouldCloseAfterSubmit
     >
       {props.children}
     </ModalWrapper>

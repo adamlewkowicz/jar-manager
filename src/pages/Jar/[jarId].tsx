@@ -12,12 +12,13 @@ import { Currency } from '../../types';
 import { TransactionsTable } from '../../components/TransactionsTable';
 import { JarFundsActions } from '../../components/JarFundsActions';
 import { useRouter } from 'next/router';
+import { useQueryJarId } from '../../hooks/useQueryJarId';
+import { SectionTitle } from '../../components/SectionTitle';
 
 export const JarPage = () => {
   const jars = useSelector(getJarsWithTransactions);
   const dispatch = useDispatch();
-  const router = useRouter();
-  const { jarId } = router.query;
+  const jarId = useQueryJarId();
 
   const currentJar = jars.find((jar) => jar.id === Number(jarId));
 
@@ -39,12 +40,15 @@ export const JarPage = () => {
 
   return (
     <main>
-      Środki: {currentJar.balance} {currentJar.currency}
+      <h2 className={css.balance}>
+        Saldo: {currentJar.balance} {currentJar.currency}
+      </h2>
+      <SectionTitle>Zarządzaj słoikiem</SectionTitle>
       <JarFundsActions
         onFundsAdd={handleFundsAdd}
         onFundsRemove={handleFundsRemove}
       />
-      <Transfer jars={jars} currentJar={currentJar} />
+      <SectionTitle>Historia transakcji słoika</SectionTitle>
       <TransactionsTable transactions={currentJar.transactions} />
     </main>
   );

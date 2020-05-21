@@ -1,20 +1,11 @@
 import dayjs from 'dayjs';
-import { Jar, Currency } from '../types';
+import { Jar } from '../types';
 
-export const generateId = (): number => Date.now();
+export const generateId = (): number =>
+  Math.round((Date.now() + Math.random()) * 100);
 
 export const formatDate = (dateISO: string): string =>
   dayjs(dateISO).format('YYYY-MM-DD HH:mm:ss');
 
-export const getJarTitle = (
-  jar: Jar,
-  transferCurrency?: Currency,
-): string => {
-  const isNotEqualCurrency =
-    transferCurrency && transferCurrency !== jar.currency;
-
-  return (
-    `Słoik ${jar.id} - ${jar.balance} ${jar.currency}` +
-    `${isNotEqualCurrency ? 'Waluta musi być taka sama' : ''}`
-  );
-};
+export const getJarTitle = (jar: Jar): string =>
+  `Słoik ${jar.id} - ${jar.balance} ${jar.currency}`;
