@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import css from './index.module.scss';
 import { TransactionsTable } from '../../components/TransactionsTable';
 import { JarFundsActions } from '../../components/JarFundsActions';
-import { SectionTitle } from '../../components/SectionTitle';
+import { H2 } from '../../components/H2';
 import { useJarStore, useQueryJarId } from '../../hooks';
 
 export const JarPage = () => {
@@ -15,9 +15,7 @@ export const JarPage = () => {
   );
 
   if (!currentJar) {
-    return (
-      <SectionTitle>Słoik o podanym id nie istnieje</SectionTitle>
-    );
+    return <H2>Słoik o podanym id nie istnieje</H2>;
   }
 
   return (
@@ -25,13 +23,13 @@ export const JarPage = () => {
       <h2 className={css.balance}>
         Saldo: {currentJar.balance} {currentJar.currency}
       </h2>
-      <SectionTitle>Zarządzaj słoikiem</SectionTitle>
+      <H2>Zarządzaj słoikiem</H2>
       <JarFundsActions
         currentJar={currentJar}
         onFundsAdd={jarStore.fundsAdd}
         onFundsRemove={jarStore.fundsRemove}
       />
-      <SectionTitle>Historia transakcji słoika</SectionTitle>
+      <H2>Historia transakcji słoika</H2>
       <TransactionsTable transactions={currentJar.transactions} />
     </main>
   );

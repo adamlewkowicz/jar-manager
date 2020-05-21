@@ -7,16 +7,16 @@ import { useJarStore } from '../../hooks';
 import { CreateJarModal } from '../../components/CreateJarModal';
 import { Jars } from '../../components/Jars';
 import { JarTransferModal } from '../../components/JarTransferModal';
-import { SectionTitle } from '../../components/SectionTitle';
+import { H2 } from '../../components/H2';
 
-export const HomePage = () => {
+export const IndexPage = () => {
   const transactions = useSelector(getTransactions);
   const jarStore = useJarStore();
 
   return (
     <article>
       <Jars jars={jarStore.jars} />
-      <SectionTitle>Zarządzaj słoikami</SectionTitle>
+      <H2>Zarządzaj słoikami</H2>
       <div className={css.modals}>
         <CreateJarModal onCreate={jarStore.createJar} />
         <JarTransferModal
@@ -24,10 +24,10 @@ export const HomePage = () => {
           onFundsTransfer={jarStore.fundsTransfer}
         />
       </div>
-      <SectionTitle>Historia wszystkich transakcji</SectionTitle>
+      <H2>Historia wszystkich transakcji</H2>
       <AllTransactionsTable transactions={transactions} />
     </article>
   );
 };
 
-export default HomePage;
+export default IndexPage;
