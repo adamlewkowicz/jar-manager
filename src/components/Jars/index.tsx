@@ -8,18 +8,18 @@ interface JarsProps {
   jars: Jar[];
 }
 
-export const Jars = (props: JarsProps) => {
-  return (
-    <div className={css.container}>
-      {props.jars.map((jar) => (
-        <Tile key={jar.id}>
-          Słoik {jar.id} - {jar.balance} {jar.currency}
-          <p>Liczba transakcji: {jar.transactions.length}</p>
-          <Link href="/jar/[jarId]" as={`/jar/${jar.id}`}>
-            Pokaż
-          </Link>
-        </Tile>
-      ))}
-    </div>
-  );
-};
+export const Jars = (props: JarsProps) => (
+  <div className={css.container}>
+    {props.jars.map((jar) => (
+      <Tile key={jar.id} className={css.item}>
+        <Link href="/jar/[jarId]" as={`/jar/${jar.id}`}>
+          <a className={css.link}>Słoik {jar.id}</a>
+        </Link>
+        <p>
+          Saldo: {jar.balance} {jar.currency}
+        </p>
+        <p>Liczba transakcji: {jar.transactions.length}</p>
+      </Tile>
+    ))}
+  </div>
+);

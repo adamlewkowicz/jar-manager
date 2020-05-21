@@ -4,6 +4,8 @@ import {
   jarFundsAdded,
   jarFundsRemoved,
   jarCreated,
+  jarFundsTransferred,
+  JarFundsTransfer,
 } from '../store/actions';
 import { Currency } from '../types';
 
@@ -19,9 +21,13 @@ export const useJarStore = () => {
   //   dispatch(jarFundsRemoved(currentJar.id, funds));
   // };
 
-  const handleJarCreate = (currency: Currency, balance: number) => {
+  const createJar = (currency: Currency, balance: number) => {
     dispatch(jarCreated({ currency, balance }));
   };
 
-  return { jars, createJar: handleJarCreate };
+  const fundsTransfer = (payload: JarFundsTransfer) => {
+    dispatch(jarFundsTransferred(payload));
+  };
+
+  return { jars, createJar, fundsTransfer };
 };

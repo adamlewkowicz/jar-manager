@@ -3,8 +3,9 @@ import { CURRENCIES } from './common/consts';
 export interface Jar {
   id: number;
   balance: number;
-  transactions: Transaction[];
   currency: Currency;
+  isDefault: boolean;
+  transactions?: Transaction[];
 }
 
 export interface Transaction {

@@ -11,6 +11,7 @@ interface RadioGroupProps<T extends string> {
   value: T;
   onChange: (value: T) => void;
   children: ReactNode;
+  name: string;
 }
 
 export const RadioGroup = <T extends string>(
@@ -21,7 +22,7 @@ export const RadioGroup = <T extends string>(
       <RadioButtonGroup
         orientation="vertical"
         labelPosition="right"
-        name="radio-button-group"
+        name={props.name}
         valueSelected={props.value}
         onChange={(value) => props.onChange(value as T)}
       >

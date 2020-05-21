@@ -1,4 +1,18 @@
 .container {
   display: flex;
-  justify-content: space-evenly;
+  margin: 24px 0;
+}
+
+.item {
+  margin: 0 48px 0 0;
+}
+
+.link {
+  // color: #000;
+  font-size: 1.75rem;
+  margin-bottom: 8px;
+  display: block;
+  &:not(:hover) {
+    text-decoration: none;
+  }
 }

@@ -14,14 +14,14 @@ export const jarsReducer = (
     {
       id: 1,
       balance: 1000,
-      transactions: [],
       currency: 'PLN',
+      isDefault: true,
     },
     {
       id: 2,
       balance: 1500,
-      transactions: [],
       currency: 'PLN',
+      isDefault: false,
     },
   ],
   action: JarAction,
@@ -30,7 +30,7 @@ export const jarsReducer = (
     case JAR_CREATED:
       const nextJar: Jar = {
         id: state.length + 1,
-        transactions: [],
+        isDefault: false,
         ...action.payload,
       };
       return [...state, nextJar];

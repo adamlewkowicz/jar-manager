@@ -4,7 +4,7 @@ import {
   JAR_FUNDS_TRANSFERRED,
   JAR_FUNDS_REMOVED,
 } from './consts';
-import { Jar, Currency } from '../../../types';
+import { Currency } from '../../../types';
 
 export const jarCreated = (data: {
   currency: Currency;
@@ -30,11 +30,7 @@ export const jarFundsTransferred = ({
   fromJarId,
   toJarId,
   amount,
-}: {
-  fromJarId: number;
-  toJarId: number;
-  amount: number;
-}) => ({
+}: JarFundsTransfer) => ({
   type: JAR_FUNDS_TRANSFERRED,
   payload: { amount },
   meta: {
@@ -42,3 +38,9 @@ export const jarFundsTransferred = ({
     toJarId,
   },
 });
+
+export interface JarFundsTransfer {
+  fromJarId: number;
+  toJarId: number;
+  amount: number;
+}
