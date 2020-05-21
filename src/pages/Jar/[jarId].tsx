@@ -1,42 +1,24 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import css from './index.module.scss';
-import { getJarsWithTransactions } from '../../store/modules/jars/selectors';
-import { useSelector, useDispatch } from 'react-redux';
-import { Transfer } from '../../components/Transfer';
-import {
-  jarFundsAdded,
-  jarFundsRemoved,
-  jarCreated,
-} from '../../store/actions';
-import { Currency } from '../../types';
 import { TransactionsTable } from '../../components/TransactionsTable';
 import { JarFundsActions } from '../../components/JarFundsActions';
-import { useRouter } from 'next/router';
-import { useQueryJarId } from '../../hooks/useQueryJarId';
 import { SectionTitle } from '../../components/SectionTitle';
+import { useJarStore, useQueryJarId } from '../../hooks';
 
 export const JarPage = () => {
-  const jars = useSelector(getJarsWithTransactions);
-  const dispatch = useDispatch();
   const jarId = useQueryJarId();
+  const jarStore = useJarStore();
 
-  const currentJar = jars.find((jar) => jar.id === Number(jarId));
+  const currentJar = useMemo(
+    () => jarStore.jars.find((jar) => jar.id === jarId),
+    [jarStore.jars, jarId],
+  );
 
   if (!currentJar) {
-    throw new Error(`Nie znaleziono słoika o id ${jarId}`);
+    return (
+      <SectionTitle>Słoik o podanym id nie istnieje</SectionTitle>
+    );
   }
-
-  const handleFundsAdd = (funds: number) => {
-    dispatch(jarFundsAdded(currentJar.id, funds));
-  };
-
-  const handleFundsRemove = (funds: number) => {
-    dispatch(jarFundsRemoved(currentJar.id, funds));
-  };
-
-  const handleJarCreate = (currency: Currency, balance: number) => {
-    dispatch(jarCreated({ currency, balance }));
-  };
 
   return (
     <main>
@@ -45,8 +27,9 @@ export const JarPage = () => {
       </h2>
       <SectionTitle>Zarządzaj słoikiem</SectionTitle>
       <JarFundsActions
-        onFundsAdd={handleFundsAdd}
-        onFundsRemove={handleFundsRemove}
+        currentJar={currentJar}
+        onFundsAdd={jarStore.fundsAdd}
+        onFundsRemove={jarStore.fundsRemove}
       />
       <SectionTitle>Historia transakcji słoika</SectionTitle>
       <TransactionsTable transactions={currentJar.transactions} />

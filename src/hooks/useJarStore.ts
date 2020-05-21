@@ -10,16 +10,16 @@ import {
 import { Currency } from '../types';
 
 export const useJarStore = () => {
-  const jars = useSelector(getJarsWithTransactions);
   const dispatch = useDispatch();
+  const jars = useSelector(getJarsWithTransactions);
 
-  // const handleFundsAdd = (funds: number) => {
-  //   dispatch(jarFundsAdded(currentJar.id, funds));
-  // };
+  const fundsAdd = (jarId: number, funds: number) => {
+    dispatch(jarFundsAdded(jarId, funds));
+  };
 
-  // const handleFundsRemove = (funds: number) => {
-  //   dispatch(jarFundsRemoved(currentJar.id, funds));
-  // };
+  const fundsRemove = (jarId: number, funds: number) => {
+    dispatch(jarFundsRemoved(jarId, funds));
+  };
 
   const createJar = (currency: Currency, balance: number) => {
     dispatch(jarCreated({ currency, balance }));
@@ -29,5 +29,11 @@ export const useJarStore = () => {
     dispatch(jarFundsTransferred(payload));
   };
 
-  return { jars, createJar, fundsTransfer };
+  return {
+    jars,
+    createJar,
+    fundsTransfer,
+    fundsAdd,
+    fundsRemove,
+  };
 };

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import css from './index.module.scss';
 import { Form, Button } from 'carbon-components-react';
 import { NumberInput } from '../NumberInput';
+import { Jar } from '../../types';
 
 interface JarFundsActionsProps {
-  onFundsAdd: (amount: number) => void;
-  onFundsRemove: (amount: number) => void;
+  currentJar: Jar;
+  onFundsAdd: (jarId: number, amount: number) => void;
+  onFundsRemove: (jarId: number, amount: number) => void;
 }
 
 export const JarFundsActions = (props: JarFundsActionsProps) => {
@@ -16,14 +18,14 @@ export const JarFundsActions = (props: JarFundsActionsProps) => {
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
-    props.onFundsAdd(fundsToAdd);
+    props.onFundsAdd(props.currentJar.id, fundsToAdd);
   };
 
   const handleFundsRemove = (
     event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
-    props.onFundsRemove(fundsToRemove);
+    props.onFundsRemove(props.currentJar.id, fundsToRemove);
   };
 
   return (

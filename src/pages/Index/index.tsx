@@ -17,7 +17,6 @@ export const HomePage = () => {
     <article>
       <Jars jars={jarStore.jars} />
       <SectionTitle>Zarządzaj słoikami</SectionTitle>
-      {/* <h2>Zarządzaj słoikami</h2> */}
       <div className={css.modals}>
         <CreateJarModal onCreate={jarStore.createJar} />
         <JarTransferModal

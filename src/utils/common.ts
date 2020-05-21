@@ -1,8 +1,12 @@
 import dayjs from 'dayjs';
 import { Jar } from '../types';
 
-export const generateId = (): number =>
-  Math.round((Date.now() + Math.random()) * 100);
+const createIdGenerator = () => {
+  let count = 0;
+  return () => Date.now() + count++;
+};
+
+export const generateId = createIdGenerator();
 
 export const formatDate = (dateISO: string): string =>
   dayjs(dateISO).format('YYYY-MM-DD HH:mm:ss');
