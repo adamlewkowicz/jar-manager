@@ -3,7 +3,7 @@ import { Table } from '../Table';
 import { Transaction, ValueOf } from '../../types';
 import { formatDate } from '../../utils';
 import { TransactionAmount } from './TransactionAmount';
-import { JarLink } from '../JarLink';
+import { JarLinks } from './JarLinks';
 
 interface TransactionsTableProps {
   transactions: Transaction[];
@@ -20,18 +20,10 @@ export const TransactionsTable = (props: TransactionsTableProps) => {
         })
         .map((transaction) => [
           String(transaction.id),
-          transaction.type === 'exchange' ? (
-            <>
-              <JarLink jarId={transaction.fromJarId} />
-              {' -> '}
-              <JarLink jarId={transaction.toJarId} />
-            </>
-          ) : (
-            <JarLink jarId={transaction.jarId} />
-          ),
+          <JarLinks {...transaction} />,
           <TransactionAmount {...transaction} />,
           transaction.title,
-          `${formatDate(transaction.date)}`,
+          formatDate(transaction.date),
         ]),
     [props.transactions, sortProp],
   );
