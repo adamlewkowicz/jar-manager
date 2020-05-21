@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   DataTable,
+  DataTableProps,
   TableBody,
   TableRow,
   TableCell,
@@ -14,7 +15,8 @@ import css from './index.module.scss';
 interface TableProps {
   title: string;
   headers: string[];
-  data: unknown[];
+  data: unknown[][];
+  sortRow?: DataTableProps['sortRow'];
 }
 
 export const Table = (props: TableProps) => {
@@ -22,12 +24,17 @@ export const Table = (props: TableProps) => {
     header,
     key: header,
   }));
-  const normalizedRows = props.data.map((row) => ({
-    id: String(row[0]),
-    ...Object.fromEntries(
-      props.headers.map((header, index) => [header, row[index + 1]]),
-    ),
-  }));
+  const normalizedRows = props.data.map((values) => {
+    const idValue = String(values[0]);
+    const mappedValues = Object.fromEntries(
+      props.headers.map((header, index) => [header, values[index]]),
+    );
+
+    return {
+      id: idValue,
+      ...mappedValues,
+    };
+  });
 
   return (
     <div className={css.container}>
@@ -35,6 +42,7 @@ export const Table = (props: TableProps) => {
         rows={normalizedRows}
         headers={normalizedHeaders}
         isSortable
+        sortRow={props.sortRow}
       >
         {({
           rows,

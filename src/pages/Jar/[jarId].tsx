@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import css from './index.module.scss';
-import { TransactionsTable } from '../../components/TransactionsTable';
 import { JarFundsActions } from '../../components/JarFundsActions';
 import { H2 } from '../../components/H2';
 import { useJarStore, useQueryJarId } from '../../hooks';
+import { TransactionsTable } from '../../components/TransactionsTable';
 
 export const JarPage = () => {
   const jarId = useQueryJarId();

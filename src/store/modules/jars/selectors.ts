@@ -10,8 +10,10 @@ export const getJarsWithTransactions = createSelector(
   (jars, transactions) =>
     jars.map((jar) => ({
       ...jar,
-      transactions: transactions.filter(
-        (trx) => trx.jarId === jar.id,
+      transactions: transactions.filter((trx) =>
+        trx.type === 'exchange'
+          ? trx.fromJarId === jar.id || trx.toJarId === jar.id
+          : trx.jarId === jar.id,
       ),
     })),
 );

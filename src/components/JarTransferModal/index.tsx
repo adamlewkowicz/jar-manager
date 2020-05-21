@@ -22,7 +22,9 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
   const [transferToJarId, setTransferToJarId] = useState<
     number | null
   >(null);
-  const [transferAmount, setTransferAmount] = useState(1);
+  const [transferAmount, setTransferAmount] = useState(0);
+  const isDisabled =
+    transferFromJarId === null || transferAmount === 0;
 
   const handleTransfer = () => {
     props.onFundsTransfer({
@@ -67,7 +69,7 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
         title="Przelej środki"
         label="Transfer środków"
         confirmText="Przelej"
-        isDisabled={transferFromJarId === null}
+        isDisabled={isDisabled}
         onSubmit={handleTransfer}
       >
         <RadioGroup
@@ -87,7 +89,7 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
         <Slider
           id="slider"
           labelText="Kwota jaką chcesz przelać"
-          min={1}
+          min={0}
           max={currentJar?.balance ?? 0}
           step={1}
           value={transferAmount}

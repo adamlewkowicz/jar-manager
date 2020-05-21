@@ -3,9 +3,16 @@ import css from './index.module.scss';
 import { Transaction } from '../../types';
 import { csx } from '../../utils';
 
-interface TransactionAmountProps extends Transaction {}
+type TransactionAmountProps = {} & Transaction;
 
 export const TransactionAmount = (props: TransactionAmountProps) => {
+  const operationSign =
+    props.type === 'exchange'
+      ? ''
+      : props.type === 'remove'
+      ? '-'
+      : '+';
+
   return (
     <span
       className={csx(css.container, {
@@ -13,7 +20,7 @@ export const TransactionAmount = (props: TransactionAmountProps) => {
         [css.red]: props.type === 'remove',
       })}
     >
-      {props.type === 'remove' ? '-' : '+'}
+      {operationSign}
       {props.amount}
     </span>
   );
