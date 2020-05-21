@@ -34,6 +34,11 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
     });
   };
 
+  const handleFromJarIdUpdate = (jarId: string) => {
+    setTransferFromJarId(Number(jarId));
+    setTransferToJarId(null);
+  };
+
   const currentJar = useMemo(
     () => props.jars.find((jar) => jar.id === transferFromJarId),
     [props.jars, transferFromJarId],
@@ -43,14 +48,12 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
     () =>
       props.jars.map((jar) => {
         const isSameJar = jar.id === currentJar?.id;
+        const isEqualCurrency = jar.currency === currentJar?.currency;
         const isNotEqualCurrency =
           jar.currency !== currentJar?.currency;
-        const isTransferAllowed = !isSameJar && isNotEqualCurrency;
-        const currencyTitle =
-          currentJar && isNotEqualCurrency
-            ? ` - Waluta obu słoików musi być taka sama (${currentJar.currency})`
-            : '';
-        const title = `${getJarTitle(jar)}${currencyTitle}`;
+        const isNotSameJar = !isSameJar;
+        const isTransferAllowed = isNotSameJar && isEqualCurrency;
+        const title = getJarTitle(jar);
 
         return {
           data: jar,
@@ -76,7 +79,7 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
           title="Wybierz słoik z którego chcesz przelać środki"
           name="transfer-from-jar"
           value={String(transferFromJarId)}
-          onChange={(jarId) => setTransferFromJarId(Number(jarId))}
+          onChange={handleFromJarIdUpdate}
         >
           {props.jars.map((jar) => (
             <RadioButton
@@ -106,13 +109,13 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
               key={jar.data.id}
               labelText={jar.title}
               value={String(jar.data.id)}
-              disabled={jar.isTransferAllowed}
+              disabled={!jar.isTransferAllowed}
             />
           ))}
         </RadioGroup>
         <InlineNotification
           kind="info"
-          title={`Możesz przelać środki jedynie na słoik o różnym id, oraz o takiej samej walucie.`}
+          title={`Możesz przelać środki jedynie na słoik o innym id, oraz o takiej samej walucie jak wybrany.`}
           hideCloseButton
         />
         {transferToJarId === null && (
