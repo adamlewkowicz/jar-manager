@@ -19,7 +19,7 @@ export const sortCompare = (a: unknown, b: unknown): -1 | 0 | 1 => {
     return 1;
   }
   if (a < b) {
-    return 1;
+    return -1;
   }
   return 0;
 };

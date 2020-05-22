@@ -1,12 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { Transaction } from '../../types';
-import {
-  formatDate,
-  sortCompare,
-  getJarIdFromTransaction,
-} from '../../utils';
+import React, { useState } from 'react';
+import { Transaction, SortDir } from '../../types';
+import { formatDate } from '../../utils';
 import { TransactionAmount } from './TransactionAmount';
 import { JarLinks } from './JarLinks';
+import { useSortedTransactions } from '../../hooks';
 import * as Table from '../Table';
 
 interface TransactionsTableProps {
@@ -16,6 +13,10 @@ interface TransactionsTableProps {
 export const TransactionsTable = (props: TransactionsTableProps) => {
   const [sortProp, setSortProp] = useState<SortProp>('id');
   const [sortDir, setSortDir] = useState<SortDir>('ASC');
+  const sortedTransactions = useSortedTransactions(
+    props.transactions,
+    { property: sortProp, direction: sortDir },
+  );
 
   const handleDirSort = (nextSortProp: SortProp) => {
     if (sortProp !== nextSortProp) {
@@ -24,26 +25,6 @@ export const TransactionsTable = (props: TransactionsTableProps) => {
       setSortDir((dir) => (dir === 'ASC' ? 'DESC' : 'ASC'));
     }
   };
-
-  const sortedTransactions = useMemo(
-    () => [
-      ...props.transactions.sort((a, b) => {
-        const numericDirection = sortDir == 'ASC' ? 1 : -1;
-
-        if (sortProp === 'jar') {
-          const jarIdA = getJarIdFromTransaction(a);
-          const jarIdB = getJarIdFromTransaction(b);
-
-          return sortCompare(jarIdA, jarIdB) * numericDirection;
-        }
-
-        return (
-          sortCompare(a[sortProp], b[sortProp]) * numericDirection
-        );
-      }),
-    ],
-    [props.transactions, sortProp, sortDir],
-  );
 
   return (
     <Table.Container title="Transakcje">
@@ -104,6 +85,4 @@ const HEADERS = [
   },
 ] as const;
 
-type SortProp = typeof HEADERS[number]['key'];
-
-type SortDir = 'ASC' | 'DESC';
+export type SortProp = typeof HEADERS[number]['key'];

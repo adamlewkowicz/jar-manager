@@ -32,3 +32,5 @@ export type Transaction = FundsTransaction | ExchangeTransaction;
 export type Currency = typeof CURRENCIES[number];
 
 export type ValueOf<T> = T[keyof T];
+
+export type SortDir = 'ASC' | 'DESC';
