@@ -8,6 +8,7 @@ interface JarTransferState {
   targetJars: {
     data: Jar;
     isTransferAllowed: boolean;
+    percentageBreakdown: number;
   }[];
 }
 
@@ -20,13 +21,14 @@ export const jarTransferReducer = (
       const currentJar = state.jars.find((jar) => jar.id === action.payload);
 
       const targetJars = state.jars.map((jar) => {
-        const isSameJar = jar.id === currentJar.id;
-        const isEqualCurrency = jar.currency === currentJar.currency;
+        const isSameJar = jar.id === currentJar?.id;
+        const isEqualCurrency = jar.currency === currentJar?.currency;
         const isTransferAllowed = !isSameJar && isEqualCurrency;
 
         return {
           data: jar,
           isTransferAllowed,
+          percentageBreakdown: 0,
         };
       });
 
@@ -66,6 +68,7 @@ export const getInitialState = (jars: Jar[]): JarTransferState => ({
   targetJars: jars.map((jar) => ({
     data: jar,
     isTransferAllowed: false,
+    percentageBreakdown: 0,
   })),
   jars,
 });

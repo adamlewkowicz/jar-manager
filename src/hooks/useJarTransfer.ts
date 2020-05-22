@@ -1,17 +1,12 @@
-import { useState, useReducer } from 'react';
+import { useReducer } from 'react';
 import { Jar } from '../types';
 import {
   jarTransferReducer,
-  initialState,
   getInitialState,
 } from '../components/JarTransferModal/reducer';
 
 export const useJarTransfer = (jars: Jar[]) => {
-  const [percentageBreakdown, setPercentageBreakdown] = useState(() =>
-    jars.map((_, index) => 0),
-  );
-
-  const [state, dispatch] = useReducer(jarTransferReducer, { ...initialState, jars });
+  const [state, dispatch] = useReducer(jarTransferReducer, getInitialState(jars));
 
   const updateCurrentJarId = (jarId: string) => {
     dispatch({ type: 'CURRENT_JAR_UPDATED', payload: Number(jarId) });
@@ -26,7 +21,6 @@ export const useJarTransfer = (jars: Jar[]) => {
   };
 
   return {
-    percentageBreakdown,
     updateAmount,
     updateCurrentJarId,
     updateTargetJarId,
