@@ -10,7 +10,8 @@
     "generate": "plop",
     "css": "tsm src --watch --nameFormat dashes",
     "test": "jest",
-    "test:ci": "jest --ci --colors --verbose"
+    "test:ci": "jest --ci --colors --verbose",
+    "type-check": "tsc --noEmit && echo \"No type errors found\""
   },
   "author": "Adam Lewkowicz",
   "license": "ISC",

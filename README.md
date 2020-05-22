@@ -1,9 +1,11 @@
 # [jar-manager]() 🍯💸
+
 Manager do zarządzania budżetem w postaci słoików
 
 ![Node CI](https://github.com/alk831/jar-manager/workflows/Node%20CI/badge.svg?branch=master)
 
 ## Cechy 🚀
+
 - tworzenie dowolnej ilości słoików
 - wpłacanie i wypłacanie środków ze słoika
 - tworzenie walutowych słoików
@@ -11,8 +13,10 @@ Manager do zarządzania budżetem w postaci słoików
 - historia transakcji wszystkich i poszczególnych słoików
 - transakcja zawierająca rodzaj operacji, id, kwotę, id słoików i datę
 - sortowanie transakcji według wszystkich kryteriów
+- testy statyczne, jednostkowe i integracyjne
 
 ## Technologie ⚙️
+
 - React.js
 - TypeScript
 - Hooks
