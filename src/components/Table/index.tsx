@@ -17,6 +17,8 @@ interface TableProps {
   headers: string[];
   data: unknown[][];
   sortRow?: DataTableProps['sortRow'];
+  onSortPropChange?: (sortProp: string) => void;
+  onSortDirChange?: (sortDir: string) => void;
 }
 
 export const Table = (props: TableProps) => {

@@ -24,4 +24,5 @@ export const TransactionAmount = (props: TransactionAmountProps) => {
 const SIGN_TYPE = {
   add: '+',
   remove: '-',
+  exchange: '',
 };
