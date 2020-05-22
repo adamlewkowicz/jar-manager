@@ -7,16 +7,7 @@ import {
 } from '../../utils';
 import { TransactionAmount } from './TransactionAmount';
 import { JarLinks } from './JarLinks';
-import {
-  Table,
-  TableHead,
-  TableRow as TR,
-  TableHeader as TH,
-  TableBody,
-  TableCell as TD,
-  TableContainer,
-} from 'carbon-components-react';
-import { DataTableSortState } from 'carbon-components-react/lib/components/DataTable/state/sorting';
+import * as Table from '../Table';
 
 interface TransactionsTableProps {
   transactions: Transaction[];
@@ -24,7 +15,7 @@ interface TransactionsTableProps {
 
 export const TransactionsTable = (props: TransactionsTableProps) => {
   const [sortProp, setSortProp] = useState<SortProp>('id');
-  const [sortDir, setSortDir] = useState<DataTableSortState>('ASC');
+  const [sortDir, setSortDir] = useState<SortDir>('ASC');
 
   const handleDirSort = (nextSortProp: SortProp) => {
     if (sortProp !== nextSortProp) {
@@ -55,42 +46,38 @@ export const TransactionsTable = (props: TransactionsTableProps) => {
   );
 
   return (
-    <>
-      <TableContainer title="Transakcje">
-        <Table isSortable>
-          <TableHead>
-            <TR>
-              {HEADERS.map((header) => (
-                <TH
-                  key={header.key}
-                  isSortable
-                  sortDirection={sortDir}
-                  isSortHeader={header.key === sortProp}
-                  onClick={() => handleDirSort(header.key)}
-                >
-                  {header.title}
-                </TH>
-              ))}
-            </TR>
-          </TableHead>
-          <TableBody>
-            {sortedTransactions.map((transaction) => (
-              <TR key={transaction.id}>
-                <TD>{transaction.id}</TD>
-                <TD>
-                  <JarLinks {...transaction} />
-                </TD>
-                <TD>
-                  <TransactionAmount {...transaction} />
-                </TD>
-                <TD>{transaction.title}</TD>
-                <TD>{formatDate(transaction.date)}</TD>
-              </TR>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+    <Table.Container title="Transakcje">
+      <Table.Head>
+        <Table.Row>
+          {HEADERS.map((header) => (
+            <Table.Header
+              key={header.key}
+              isSortable
+              sortDirection={sortDir}
+              isSortHeader={header.key === sortProp}
+              onClick={() => handleDirSort(header.key)}
+            >
+              {header.title}
+            </Table.Header>
+          ))}
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {sortedTransactions.map((transaction) => (
+          <Table.Row key={transaction.id}>
+            <Table.Cell>{transaction.id}</Table.Cell>
+            <Table.Cell>
+              <JarLinks {...transaction} />
+            </Table.Cell>
+            <Table.Cell>
+              <TransactionAmount {...transaction} />
+            </Table.Cell>
+            <Table.Cell>{transaction.title}</Table.Cell>
+            <Table.Cell>{formatDate(transaction.date)}</Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table.Container>
   );
 };
 
@@ -118,3 +105,5 @@ const HEADERS = [
 ] as const;
 
 type SortProp = typeof HEADERS[number]['key'];
+
+type SortDir = 'ASC' | 'DESC';
