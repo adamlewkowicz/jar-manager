@@ -1,25 +1,12 @@
-import { AppStore, configureStore } from '../../store';
-import { Provider as StoreProvider } from 'react-redux';
 import IndexPage from '.';
-import { render, screen, within } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-let store: AppStore;
-
-beforeEach(() => {
-  store = configureStore();
-});
-
-const renderWithStore = () => (
-  <StoreProvider store={store}>
-    <IndexPage />
-  </StoreProvider>
-);
+import { renderSetup } from '../../../test-utils';
 
 describe('<IndexPage />', () => {
   it('creating new jar should work', async () => {
     const fundsFake = '300';
-    render(renderWithStore());
+    renderSetup(<IndexPage />);
 
     const createJarModalButton = screen.getByRole('button', { name: /Utwórz słoik/i });
     userEvent.click(createJarModalButton);
