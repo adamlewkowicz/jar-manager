@@ -1,36 +1,47 @@
 import { AppStore, configureStore } from '../../store';
-import { Provider as StoreProvider } from 'react-redux';
 import JarPage from './[jarId]';
-import { render, screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-let store: AppStore;
-
-beforeEach(() => {
-  store = configureStore();
-});
-
-const renderWithStore = () => (
-  <StoreProvider store={store}>
-    <JarPage />
-  </StoreProvider>
-);
+import { renderSetup } from '../../../test-utils';
 
 describe('<JarPage />', () => {
+  const jarMock = {
+    id: 1,
+    balance: 0,
+    currency: 'PLN',
+    isDefault: false,
+  };
+
+  let store: AppStore;
+
+  beforeEach(() => {
+    store = configureStore({
+      jars: [jarMock as any],
+    });
+  });
+
   it('adding funds should work', async () => {
     const fundsMock = '300';
-    render(renderWithStore());
+    renderSetup(<JarPage />, { store, query: { jarId: jarMock.id } });
 
-    const initialBalance = screen.queryByText(`Saldo: 0 PLN`);
+    const initialBalance = screen.getByRole('heading', {
+      name: `Saldo: 0 ${jarMock.currency}`,
+    });
     expect(initialBalance).toBeTruthy();
 
-    const addFundsInput = screen.getByRole('textbox', { name: /Wpłać środki/i });
+    const addFundsInput = screen.getByRole('spinbutton', { name: /Wpłać środki/i });
+    fireEvent.input(addFundsInput, { target: { value: '' } });
     await userEvent.type(addFundsInput, fundsMock);
 
     const addFundsSubmitButton = screen.getByRole('button', { name: /Wpłać/i });
     userEvent.click(addFundsSubmitButton);
 
-    const updatedBalance = screen.getByText(`Saldo: ${fundsMock} PLN`);
+    const updatedBalance = screen.getByRole('heading', {
+      name: `Saldo: ${fundsMock} ${jarMock.currency}`,
+    });
+    const transactionRow = screen.getByRole('cell', { name: /Wpłata środków/i });
+
     expect(updatedBalance).toBeTruthy();
+    expect(transactionRow).toBeTruthy();
   });
 });

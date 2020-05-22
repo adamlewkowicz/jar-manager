@@ -16,12 +16,21 @@ export const JarFundsActions = (props: JarFundsActionsProps) => {
 
   const handleFundsAdd = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.onFundsAdd(props.currentJar.id, fundsToAdd);
+    const parsedFunds = Number(fundsToAdd);
+
+    if (!Number.isNaN(parsedFunds)) {
+      props.onFundsAdd(props.currentJar.id, parsedFunds);
+    }
   };
 
   const handleFundsRemove = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.onFundsRemove(props.currentJar.id, fundsToRemove);
+
+    const parsedFunds = Number(fundsToRemove);
+
+    if (!Number.isNaN(parsedFunds)) {
+      props.onFundsRemove(props.currentJar.id, parsedFunds);
+    }
   };
 
   return (

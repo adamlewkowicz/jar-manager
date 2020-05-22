@@ -6,22 +6,13 @@ import {
 } from 'carbon-components-react';
 import { useUniqueId } from '../../hooks';
 
-interface NumberInputProps
-  extends Omit<CarbonNumberInputProps, 'onChange' | 'ref'> {
+interface NumberInputProps extends Omit<CarbonNumberInputProps, 'onChange' | 'ref'> {
   max: number;
   onChange: (value: number) => void;
 }
 
-export const NumberInput = ({
-  onChange,
-  value,
-  ...props
-}: NumberInputProps) => {
-  const id = useUniqueId();
-
-  const handleOnChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+export const NumberInput = ({ onChange, value, ...props }: NumberInputProps) => {
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
 
     if (Number.isNaN(value)) {
@@ -32,10 +23,10 @@ export const NumberInput = ({
 
   return (
     <CarbonNumberInput
-      id={`number-input-${id}`}
       invalidText={`Nieprawidłowa ilość. Maksymalna wartość to ${props.max}.`}
       value={value}
       onChange={handleOnChange}
+      allowEmpty
       {...props}
     />
   );
