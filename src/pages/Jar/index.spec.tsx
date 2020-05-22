@@ -20,28 +20,30 @@ describe('<JarPage />', () => {
     });
   });
 
-  it('adding funds should work', async () => {
-    const fundsMock = '300';
-    renderSetup(<JarPage />, { store, query: { jarId: jarMock.id } });
+  describe('when adds funds to jar', () => {
+    it('should update jar balance and display transaction', async () => {
+      const fundsMock = '300';
+      renderSetup(<JarPage />, { store, query: { jarId: jarMock.id } });
 
-    const initialBalance = screen.getByRole('heading', {
-      name: `Saldo: 0 ${jarMock.currency}`,
+      const initialBalance = screen.getByRole('heading', {
+        name: `Saldo: 0 ${jarMock.currency}`,
+      });
+      expect(initialBalance).toBeTruthy();
+
+      const addFundsInput = screen.getByRole('spinbutton', { name: /Wpłać środki/i });
+      fireEvent.input(addFundsInput, { target: { value: '' } });
+      await userEvent.type(addFundsInput, fundsMock);
+
+      const addFundsSubmitButton = screen.getByRole('button', { name: /Wpłać/i });
+      userEvent.click(addFundsSubmitButton);
+
+      const updatedBalance = screen.getByRole('heading', {
+        name: `Saldo: ${fundsMock} ${jarMock.currency}`,
+      });
+      const transactionRow = screen.getByRole('cell', { name: /Wpłata środków/i });
+
+      expect(updatedBalance).toBeTruthy();
+      expect(transactionRow).toBeTruthy();
     });
-    expect(initialBalance).toBeTruthy();
-
-    const addFundsInput = screen.getByRole('spinbutton', { name: /Wpłać środki/i });
-    fireEvent.input(addFundsInput, { target: { value: '' } });
-    await userEvent.type(addFundsInput, fundsMock);
-
-    const addFundsSubmitButton = screen.getByRole('button', { name: /Wpłać/i });
-    userEvent.click(addFundsSubmitButton);
-
-    const updatedBalance = screen.getByRole('heading', {
-      name: `Saldo: ${fundsMock} ${jarMock.currency}`,
-    });
-    const transactionRow = screen.getByRole('cell', { name: /Wpłata środków/i });
-
-    expect(updatedBalance).toBeTruthy();
-    expect(transactionRow).toBeTruthy();
   });
 });
