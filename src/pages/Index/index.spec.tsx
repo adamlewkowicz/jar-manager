@@ -1,7 +1,7 @@
 import { AppStore, configureStore } from '../../store';
 import { Provider as StoreProvider } from 'react-redux';
 import IndexPage from '.';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 let store: AppStore;
@@ -17,24 +17,28 @@ const renderWithStore = () => (
 );
 
 describe('<IndexPage />', () => {
-  it('should create new jar', async () => {
-    const fundsFake = 300;
+  it('creating new jar should work', async () => {
+    const fundsFake = '300';
     render(renderWithStore());
 
-    const createJarModalButton = screen.getByRole('button', {
-      name: /Utwórz słoik/i,
-    });
+    const createJarModalButton = screen.getByRole('button', { name: /Utwórz słoik/i });
     userEvent.click(createJarModalButton);
 
-    const jarFundsInput = screen.getByRole('textbox', {
+    const createJarModal = screen.getByRole('dialog', {
+      name: /Tworzenie nowego słoika/i,
+    });
+
+    const jarFundsInput = await within(createJarModal).findByRole('spinbutton', {
       name: /Środki/i,
     });
-    await userEvent.type(jarFundsInput, String(fundsFake));
+    await userEvent.type(jarFundsInput, fundsFake);
 
-    const createJarButton = screen.getByRole('button', {
+    const createJarButton = within(createJarModal).getByRole('button', {
       name: /Utwórz/i,
     });
     userEvent.click(createJarButton);
+
+    // const fundsText = screen.queryByText(`${fundsFake} PLN`);
 
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
   });
