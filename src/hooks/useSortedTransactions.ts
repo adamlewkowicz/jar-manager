@@ -1,7 +1,7 @@
 import { Transaction, SortDir } from '../types';
 import { useMemo } from 'react';
 import { SortProp } from '../components';
-import { sortCompare, getJarIdFromTransaction } from '../utils';
+import { sortCompare, getJarIdsFromTransaction } from '../utils';
 
 interface SortOptions {
   property: SortProp;
@@ -19,8 +19,8 @@ export const useSortedTransactions = (
         let sortResult: number;
 
         if (property === 'jar') {
-          const jarIdA = getJarIdFromTransaction(a);
-          const jarIdB = getJarIdFromTransaction(b);
+          const [jarIdA] = getJarIdsFromTransaction(a);
+          const [jarIdB] = getJarIdsFromTransaction(b);
 
           sortResult = sortCompare(jarIdA, jarIdB);
         } else {
