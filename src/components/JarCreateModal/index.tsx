@@ -5,11 +5,11 @@ import { RadioGroup } from '../RadioGroup';
 import { CURRENCIES } from '../../common/consts';
 import { Modal } from '../Modal';
 
-interface CreateJarModalProps {
+interface JarCreateModal {
   onCreate: (currency: Currency, balance: number) => void;
 }
 
-export const CreateJarModal = (props: CreateJarModalProps) => {
+export const JarCreateModal = (props: JarCreateModal) => {
   const [balance, setBalance] = useState(250);
   const [currency, setCurrency] = useState<Currency>('PLN');
 
@@ -37,11 +37,7 @@ export const CreateJarModal = (props: CreateJarModalProps) => {
         onChange={(currency) => setCurrency(currency)}
       >
         {CURRENCIES.map((currency) => (
-          <RadioButton
-            key={currency}
-            labelText={currency}
-            value={currency}
-          />
+          <RadioButton key={currency} labelText={currency} value={currency} />
         ))}
       </RadioGroup>
     </Modal>

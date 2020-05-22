@@ -1,10 +1,5 @@
 import React, { ReactNode } from 'react';
-import css from './index.module.scss';
-import {
-  FormGroup,
-  RadioButtonGroup,
-  RadioButton,
-} from 'carbon-components-react';
+import { FormGroup, RadioButtonGroup } from 'carbon-components-react';
 
 interface RadioGroupProps<T extends string> {
   title: string;
@@ -14,9 +9,7 @@ interface RadioGroupProps<T extends string> {
   name: string;
 }
 
-export const RadioGroup = <T extends string>(
-  props: RadioGroupProps<T>,
-) => {
+export const RadioGroup = <T extends string>(props: RadioGroupProps<T>) => {
   return (
     <FormGroup legendText={props.title} style={{ marginTop: 20 }}>
       <RadioButtonGroup

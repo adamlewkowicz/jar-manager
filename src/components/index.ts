@@ -1,4 +1,4 @@
-export * from './CreateJarModal';
+export * from './JarCreateModal';
 export * from './H2';
 export * from './JarFundsActions';
 export * from './JarGrid';
@@ -10,4 +10,3 @@ export * from './NumberInput';
 export * from './RadioGroup';
 export * from './Table';
 export * from './TransactionsTable';
-export * from './Transfer';

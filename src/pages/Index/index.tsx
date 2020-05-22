@@ -8,7 +8,7 @@ import {
   TransactionsTable,
   JarTransferModal,
   JarGrid,
-  CreateJarModal,
+  JarCreateModal,
 } from '../../components';
 
 export const IndexPage = () => {
@@ -20,11 +20,8 @@ export const IndexPage = () => {
       <JarGrid jars={jarStore.jars} />
       <H2>Zarządzaj słoikami</H2>
       <div className={css.modals}>
-        <CreateJarModal onCreate={jarStore.createJar} />
-        <JarTransferModal
-          jars={jarStore.jars}
-          onFundsTransfer={jarStore.fundsTransfer}
-        />
+        <JarCreateModal onCreate={jarStore.createJar} />
+        <JarTransferModal jars={jarStore.jars} onFundsTransfer={jarStore.fundsTransfer} />
       </div>
       <H2>Historia wszystkich transakcji</H2>
       <TransactionsTable transactions={transactions} />
