@@ -12,11 +12,11 @@ interface TransactionsTableProps {
 
 export const TransactionsTable = (props: TransactionsTableProps) => {
   const [sortProp, setSortProp] = useState<SortProp>('id');
-  const [sortDir, setSortDir] = useState<SortDir>('ASC');
-  const sortedTransactions = useSortedTransactions(
-    props.transactions,
-    { property: sortProp, direction: sortDir },
-  );
+  const [sortDir, setSortDir] = useState<SortDir>('DESC');
+  const sortedTransactions = useSortedTransactions(props.transactions, {
+    property: sortProp,
+    direction: sortDir,
+  });
 
   const handleDirSort = (nextSortProp: SortProp) => {
     if (sortProp !== nextSortProp) {

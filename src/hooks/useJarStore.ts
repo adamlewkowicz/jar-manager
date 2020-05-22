@@ -1,37 +1,30 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getJarsWithTransactions } from '../store/modules/jars/selectors';
 import type { JarFundsTransfer } from '../store/actions';
-import {
-  jarFundsAdded,
-  jarFundsRemoved,
-  jarCreated,
-  jarFundsTransferred,
-  jarDefaultUpdated,
-} from '../store/actions';
+import { Selectors, Actions } from '../store';
 import { Currency } from '../types';
 
 export const useJarStore = () => {
   const dispatch = useDispatch();
-  const jars = useSelector(getJarsWithTransactions);
+  const jars = useSelector(Selectors.getJarsWithTransactions);
 
   const fundsAdd = (jarId: number, funds: number) => {
-    dispatch(jarFundsAdded(jarId, funds));
+    dispatch(Actions.jarFundsAdded(jarId, funds));
   };
 
   const fundsRemove = (jarId: number, funds: number) => {
-    dispatch(jarFundsRemoved(jarId, funds));
+    dispatch(Actions.jarFundsRemoved(jarId, funds));
   };
 
   const createJar = (currency: Currency, balance: number) => {
-    dispatch(jarCreated({ currency, balance }));
+    dispatch(Actions.jarCreated({ currency, balance }));
   };
 
   const fundsTransfer = (payload: JarFundsTransfer) => {
-    dispatch(jarFundsTransferred(payload));
+    dispatch(Actions.jarFundsTransferred(payload));
   };
 
   const updateDefault = (jarId: number) => {
-    dispatch(jarDefaultUpdated(jarId));
+    dispatch(Actions.jarDefaultUpdated(jarId));
   };
 
   return {

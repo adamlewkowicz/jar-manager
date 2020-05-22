@@ -11,19 +11,15 @@ interface JarFundsActionsProps {
 }
 
 export const JarFundsActions = (props: JarFundsActionsProps) => {
-  const [fundsToAdd, setFundsToAdd] = useState(150);
+  const [fundsToAdd, setFundsToAdd] = useState(250);
   const [fundsToRemove, setFundsToRemove] = useState(150);
 
-  const handleFundsAdd = (
-    event: React.FormEvent<HTMLFormElement>,
-  ) => {
+  const handleFundsAdd = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     props.onFundsAdd(props.currentJar.id, fundsToAdd);
   };
 
-  const handleFundsRemove = (
-    event: React.FormEvent<HTMLFormElement>,
-  ) => {
+  const handleFundsRemove = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     props.onFundsRemove(props.currentJar.id, fundsToRemove);
   };
@@ -39,12 +35,7 @@ export const JarFundsActions = (props: JarFundsActionsProps) => {
           value={fundsToAdd}
           onChange={setFundsToAdd}
         />
-        <Button
-          kind="primary"
-          tabIndex={0}
-          type="submit"
-          className={css.button}
-        >
+        <Button kind="primary" tabIndex={0} type="submit" className={css.button}>
           Wpłać
         </Button>
       </Form>
@@ -57,12 +48,7 @@ export const JarFundsActions = (props: JarFundsActionsProps) => {
           value={fundsToRemove}
           onChange={setFundsToRemove}
         />
-        <Button
-          kind="primary"
-          tabIndex={0}
-          type="submit"
-          className={css.button}
-        >
+        <Button kind="primary" tabIndex={0} type="submit" className={css.button}>
           Wypłać
         </Button>
       </Form>

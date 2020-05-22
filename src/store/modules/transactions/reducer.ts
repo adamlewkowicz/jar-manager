@@ -3,11 +3,7 @@ import {
   JAR_FUNDS_REMOVED,
   JAR_FUNDS_TRANSFERRED,
 } from '../jars/consts';
-import {
-  Transaction,
-  FundsTransaction,
-  ExchangeTransaction,
-} from '../../../types';
+import { Transaction, FundsTransaction, ExchangeTransaction } from '../../../types';
 import { JarAction } from '../jars/reducer';
 import { generateId } from '../../../utils';
 
@@ -43,7 +39,7 @@ export const transactionsReducer = (
       return [nextTransaction, ...state];
     }
     case JAR_FUNDS_TRANSFERRED: {
-      const fromJarTransaction: ExchangeTransaction = {
+      const nextTransaction: ExchangeTransaction = {
         id: generateId(),
         fromJarId: action.meta.fromJarId,
         toJarId: action.meta.toJarId,
@@ -52,16 +48,8 @@ export const transactionsReducer = (
         title: 'Transakcja środków',
         type: 'exchange',
       };
-      // const toJarTransaction: ExchangeTransaction = {
-      //   id: generateId(),
-      //   jarId: action.meta.toJarId,
-      //   amount: action.payload.amount,
-      //   date: new Date().toISOString(),
-      //   title: 'Transakcja środków',
-      //   type: 'exchange',
-      // };
 
-      return [fromJarTransaction, ...state];
+      return [nextTransaction, ...state];
     }
     default:
       return state;
