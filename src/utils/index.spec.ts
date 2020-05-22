@@ -1,5 +1,6 @@
-import { generateId, formatDate, getJarTitle, csx } from './';
+import { generateId, getJarTitle, csx } from './';
 import { Jar } from '../types';
+import { sortCompare, getJarIdsFromTransaction } from './common';
 
 describe('Utils 🧰', () => {
   describe('generateId()', () => {
@@ -10,16 +11,6 @@ describe('Utils 🧰', () => {
       expect(firstId).not.toEqual(secondId);
     });
   });
-  describe('formatDate()', () => {
-    it('should format date based on iso string', () => {
-      const isoStringFake = '2020-05-21T18:55:24.369Z';
-      const formattedDate = formatDate(isoStringFake);
-
-      expect(formattedDate).toMatchInlineSnapshot(
-        `"2020-05-21 20:55:24"`,
-      );
-    });
-  });
   describe('getJarTitle()', () => {
     it('should format jar title properly', () => {
       const jarFake: Jar = {
@@ -28,9 +19,7 @@ describe('Utils 🧰', () => {
         currency: 'PLN',
         isDefault: false,
       };
-      expect(getJarTitle(jarFake)).toMatchInlineSnapshot(
-        `"Słoik 1 - 100 PLN"`,
-      );
+      expect(getJarTitle(jarFake)).toMatchInlineSnapshot(`"Słoik 1 - 100 PLN"`);
     });
   });
   describe('csx()', () => {
@@ -46,6 +35,24 @@ describe('Utils 🧰', () => {
       });
 
       expect(joinedClassNames).not.toContain(classNamesMock.item);
+    });
+  });
+  describe('sortCompare()', () => {
+    it('should return short result based on given items', () => {
+      expect(sortCompare(1, 2)).toEqual(-1);
+      expect(sortCompare(1, 1)).toEqual(0);
+      expect(sortCompare(2, 1)).toEqual(1);
+    });
+  });
+  describe('getJarIdsFromTransaction()', () => {
+    it('should extract jar ids from given transaction', () => {
+      const transactionFake: any = {
+        fromJarId: 1,
+        toJarId: 2,
+        type: 'exchange',
+      };
+
+      expect(getJarIdsFromTransaction(transactionFake).length).toBeGreaterThan(0);
     });
   });
 });
