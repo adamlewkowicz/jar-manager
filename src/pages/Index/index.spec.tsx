@@ -1,13 +1,19 @@
-import { store } from '../../store';
-import { Provider } from 'react-redux';
+import { AppStore, configureStore } from '../../store';
+import { Provider as StoreProvider } from 'react-redux';
 import IndexPage from '.';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+let store: AppStore;
+
+beforeEach(() => {
+  store = configureStore();
+});
+
 const renderWithStore = () => (
-  <Provider store={store}>
+  <StoreProvider store={store}>
     <IndexPage />
-  </Provider>
+  </StoreProvider>
 );
 
 describe('<IndexPage />', () => {

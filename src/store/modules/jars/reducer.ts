@@ -10,23 +10,7 @@ import {
 
 type JarsState = Jar[];
 
-export const jarsReducer = (
-  state: JarsState = [
-    {
-      id: 1,
-      balance: 1000,
-      currency: 'PLN',
-      isDefault: true,
-    },
-    {
-      id: 2,
-      balance: 1500,
-      currency: 'PLN',
-      isDefault: false,
-    },
-  ],
-  action: JarAction,
-): JarsState => {
+export const jarsReducer = (state: JarsState = [], action: JarAction): JarsState => {
   switch (action.type) {
     case JAR_CREATED:
       const nextJar: Jar = {

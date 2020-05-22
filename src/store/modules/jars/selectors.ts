@@ -1,9 +1,9 @@
-import { StoreState } from '..';
+import { AppState } from '..';
 import { createSelector } from 'reselect';
 import { getTransactions } from '../transactions/selectors';
 import { getJarIdsFromTransaction } from '../../../utils';
 
-export const getJars = (state: StoreState) => state.jars;
+export const getJars = (state: AppState) => state.jars;
 
 export const getJarsWithTransactions = createSelector(
   getJars,

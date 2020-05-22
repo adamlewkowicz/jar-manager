@@ -1,4 +1,3 @@
-import { StoreState } from '..';
+import { AppState } from '..';
 
-export const getTransactions = (state: StoreState) =>
-  state.transactions;
+export const getTransactions = (state: AppState) => state.transactions;

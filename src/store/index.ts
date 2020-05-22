@@ -1,3 +1,3 @@
 // export * as Actions from './actions';
-export type { StoreState } from './modules';
+export type { AppState } from './modules';
 export * from './store';

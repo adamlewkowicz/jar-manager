@@ -23,7 +23,7 @@ export const JarPage = () => {
         Saldo: {currentJar.balance} {currentJar.currency}
       </h2>
       <Toggle
-        id="jar-default-toggle"
+        id="jar-default"
         labelText="Ustawiony jako domyślny"
         labelA="Nie"
         labelB="Tak"
