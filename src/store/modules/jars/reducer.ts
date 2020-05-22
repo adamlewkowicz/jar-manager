@@ -5,6 +5,7 @@ import {
   JAR_FUNDS_ADDED,
   JAR_FUNDS_REMOVED,
   JAR_FUNDS_TRANSFERRED,
+  JAR_DEFAULT_UPDATED,
 } from './consts';
 
 type JarsState = Jar[];
@@ -69,6 +70,11 @@ export const jarsReducer = (
         }
         return jar;
       });
+    case JAR_DEFAULT_UPDATED:
+      return state.map((jar) => ({
+        ...jar,
+        isDefault: jar.id === action.meta.jarId ? !jar.isDefault : false,
+      }));
     default:
       return state;
   }
