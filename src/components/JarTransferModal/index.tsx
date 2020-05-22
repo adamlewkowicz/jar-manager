@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { RadioButton, Slider, InlineNotification } from 'carbon-components-react';
 import type { JarFundsTransfer } from '../../store/actions';
 import { Jar } from '../../types';
 import { RadioGroup } from '../RadioGroup';
 import { Modal } from '../Modal';
 import { getJarTitle } from '../../utils';
+import { useJarTransfer } from '../../hooks/useJarTransfer';
 
 interface JarTransferModalProps {
   jars: Jar[];
@@ -12,55 +13,16 @@ interface JarTransferModalProps {
 }
 
 export const JarTransferModal = (props: JarTransferModalProps) => {
-  const [transferFromJarId, setTransferFromJarId] = useState<number | null>(null);
-  const [transferToJarId, setTransferToJarId] = useState<number | null>(null);
-  const [transferAmount, setTransferAmount] = useState(0);
-  const [percentageBreakdown, setPercentageBreakdown] = useState(() =>
-    props.jars.map((_, index) => 0),
-  );
-  const isDisabled = transferFromJarId === null || transferAmount === 0;
+  const transfer = useJarTransfer(props.jars);
+  const isDisabled = transfer.state.currentJar === null || transfer.state.amount === 0;
 
   const handleTransfer = () => {
     props.onFundsTransfer({
-      fromJarId: transferFromJarId,
-      toJarId: transferToJarId,
-      amount: transferAmount,
+      fromJarId: transfer.state.currentJar.id,
+      toJarId: transfer.state.targetJar.id,
+      amount: transfer.state.amount,
     });
   };
-
-  const handleFromJarIdUpdate = (jarId: string) => {
-    setTransferFromJarId(Number(jarId));
-    setTransferToJarId(null);
-  };
-
-  const currentJar = useMemo(
-    () => props.jars.find((jar) => jar.id === transferFromJarId),
-    [props.jars, transferFromJarId],
-  );
-
-  const transferToJars = useMemo(
-    () =>
-      props.jars.map((jar) => {
-        const isSameJar = jar.id === currentJar?.id;
-        const isEqualCurrency = jar.currency === currentJar?.currency;
-        const isNotEqualCurrency = jar.currency !== currentJar?.currency;
-        const isNotSameJar = !isSameJar;
-        const isTransferAllowed = isNotSameJar && isEqualCurrency;
-        // const defaultJarTitle = transferToJarId  !== null &&
-        const title = getJarTitle(jar);
-
-        return {
-          data: jar,
-          title,
-          isSameJar,
-          isNotEqualCurrency,
-          isTransferAllowed,
-        };
-      }),
-    [props.jars, currentJar],
-  );
-
-  const availableJarsToTransfer = transferToJars.filter((jar) => jar.isTransferAllowed);
 
   return (
     <>
@@ -74,8 +36,8 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
         <RadioGroup
           title="Wybierz słoik z którego chcesz przelać środki"
           name="transfer-from-jar"
-          value={String(transferFromJarId)}
-          onChange={handleFromJarIdUpdate}
+          value={String(transfer.state.currentJar?.id)}
+          onChange={transfer.updateCurrentJarId}
         >
           {props.jars.map((jar) => (
             <RadioButton
@@ -89,21 +51,23 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
           id="slider"
           labelText="Kwota jaką chcesz przelać"
           min={0}
-          max={currentJar?.balance ?? 0}
+          max={transfer.state.currentJar?.balance ?? 0}
           step={1}
-          value={transferAmount}
-          onChange={(event) => setTransferAmount(event.value)}
+          value={transfer.state.amount}
+          onChange={(event) => transfer.updateAmount(event.value)}
         />
         <RadioGroup
           title="Wybierz słoik na który chcesz wpłacić środki"
           name="transfer-to-jar"
-          value={String(transferToJarId)}
-          onChange={(jarId) => setTransferToJarId(Number(jarId))}
+          value={String(transfer.state.targetJar?.id)}
+          onChange={transfer.updateTargetJarId}
         >
-          {transferToJars.map((jar) => (
+          {transfer.state.targetJars.map((jar) => (
             <RadioButton
               key={jar.data.id}
-              labelText={`${jar.title} ${jar.data.isDefault ? '- Domyślny' : ''}`}
+              labelText={`${getJarTitle(jar.data)} ${
+                jar.data.isDefault ? '- Domyślny' : ''
+              }`}
               value={String(jar.data.id)}
               disabled={!jar.isTransferAllowed}
             />
@@ -114,7 +78,7 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
           title="Możesz przelać środki jedynie na słoik o innym id, oraz o takiej samej walucie jak wybrany."
           hideCloseButton
         />
-        {transferToJarId === null && (
+        {transfer.state.targetJar === null && (
           <InlineNotification
             kind="warning"
             title="Nie wybrałeś słoika na który chcesz wpłacić. Kwota zostanie rozdzielona pomiędzy dostępne słoiki."

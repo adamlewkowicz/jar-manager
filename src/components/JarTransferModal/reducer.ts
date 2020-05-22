@@ -1,14 +1,12 @@
 import { Jar } from '../../types';
-import { getJarTitle } from '../../utils';
 
 interface JarTransferState {
   jars: Jar[];
-  transferFromJar: Jar | null;
-  transferToJar: Jar | null;
-  transferToJars: {
+  amount: number;
+  currentJar: Jar | null;
+  targetJar: Jar | null;
+  targetJars: {
     data: Jar;
-    title: string;
-    isNotEqualCurrency: boolean;
     isTransferAllowed: boolean;
   }[];
 }
@@ -18,46 +16,67 @@ export const jarTransferReducer = (
   action: Action,
 ): JarTransferState => {
   switch (action.type) {
-    case 'FROM_JAR_UPDATED':
-      const transferFromJar = action.payload;
-      // const transferToJars
-      return {
-        ...state,
-        transferFromJar,
-        transferToJar: null,
-        transferToJars: state.jars.map((jar) => {
-          const isSameJar = jar.id === transferFromJar.id;
-          const isEqualCurrency = jar.currency === transferFromJar.currency;
-          const isNotEqualCurrency = jar.currency !== transferFromJar.currency;
-          const isNotSameJar = !isSameJar;
-          const isTransferAllowed = isNotSameJar && isEqualCurrency;
-          const title = getJarTitle(jar);
+    case 'CURRENT_JAR_UPDATED':
+      const currentJar = state.jars.find((jar) => jar.id === action.payload);
 
-          return {
-            data: jar,
-            title,
-            isSameJar,
-            isNotEqualCurrency,
-            isTransferAllowed,
-          };
-        }),
-      };
-    case 'TO_JAR_UPDATED':
+      const targetJars = state.jars.map((jar) => {
+        const isSameJar = jar.id === currentJar.id;
+        const isEqualCurrency = jar.currency === currentJar.currency;
+        const isTransferAllowed = !isSameJar && isEqualCurrency;
+
+        return {
+          data: jar,
+          isTransferAllowed,
+        };
+      });
+
+      const availableTargetJars = targetJars.filter((jar) => jar.isTransferAllowed);
+      const defaultJar = availableTargetJars.find((jar) => jar.data.isDefault);
+
       return {
         ...state,
-        transferToJar: action.payload,
+        currentJar: currentJar,
+        targetJar: defaultJar?.data ?? null,
+        targetJars: targetJars,
+      };
+    case 'TARGET_JAR_UPDATED':
+      const targetJar = state.jars.find((jar) => jar.id === action.payload);
+      return {
+        ...state,
+        targetJar: targetJar,
+      };
+    case 'AMOUNT_UPDATED':
+      return {
+        ...state,
+        amount: action.payload,
       };
   }
 };
 
-type TransferFromJarUpdated = {
-  type: 'FROM_JAR_UPDATED';
-  payload: Jar;
+export const initialState: JarTransferState = {
+  jars: [],
+  amount: 0,
+  currentJar: null,
+  targetJar: null,
+  targetJars: [],
 };
 
-type TransferToJarUpdated = {
-  type: 'TO_JAR_UPDATED';
-  payload: Jar;
-};
+export const getInitialState = (jars: Jar[]): JarTransferState => ({
+  ...initialState,
+  targetJars: jars.map((jar) => ({
+    data: jar,
+    isTransferAllowed: false,
+  })),
+  jars,
+});
 
-type Action = TransferFromJarUpdated | TransferToJarUpdated;
+type Action =
+  | {
+      type: 'CURRENT_JAR_UPDATED';
+      payload: number;
+    }
+  | {
+      type: 'TARGET_JAR_UPDATED';
+      payload: number;
+    }
+  | { type: 'AMOUNT_UPDATED'; payload: number };
