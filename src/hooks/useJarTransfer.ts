@@ -7,6 +7,7 @@ import {
 
 export const useJarTransfer = (jars: Jar[]) => {
   const [state, dispatch] = useReducer(jarTransferReducer, getInitialState(jars));
+  const maxAmount = state.currentJar?.balance ?? 0;
 
   const updateCurrentJarId = (jarId: string) => {
     dispatch({ type: 'CURRENT_JAR_UPDATED', payload: Number(jarId) });
@@ -21,10 +22,10 @@ export const useJarTransfer = (jars: Jar[]) => {
   };
 
   return {
+    state,
+    maxAmount,
     updateAmount,
     updateCurrentJarId,
     updateTargetJarId,
-    state,
-    dispatch,
   };
 };

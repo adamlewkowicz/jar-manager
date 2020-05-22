@@ -1,6 +1,6 @@
 import React from 'react';
 import { RadioButton, Slider, InlineNotification } from 'carbon-components-react';
-import type { JarFundsTransfer } from '../../store/actions';
+import type { JarFundsTransferPayload } from '../../store/actions';
 import { Jar } from '../../types';
 import { RadioGroup } from '../RadioGroup';
 import { Modal } from '../Modal';
@@ -9,7 +9,7 @@ import { useJarTransfer } from '../../hooks/useJarTransfer';
 
 interface JarTransferModalProps {
   jars: Jar[];
-  onFundsTransfer: (payload: JarFundsTransfer) => void;
+  onFundsTransfer: (payload: JarFundsTransferPayload) => void;
 }
 
 export const JarTransferModal = (props: JarTransferModalProps) => {
@@ -51,7 +51,7 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
           id="slider"
           labelText="Kwota jaką chcesz przelać"
           min={0}
-          max={transfer.state.currentJar?.balance ?? 0}
+          max={transfer.maxAmount}
           step={1}
           value={transfer.state.amount}
           onChange={(event) => transfer.updateAmount(event.value)}

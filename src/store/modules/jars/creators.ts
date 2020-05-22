@@ -33,7 +33,7 @@ export const jarFundsTransferred = ({
   fromJarId,
   toJarId,
   amount,
-}: JarFundsTransfer) => ({
+}: JarFundsTransferPayload) => ({
   type: JAR_FUNDS_TRANSFERRED,
   payload: { amount },
   meta: {
@@ -42,7 +42,7 @@ export const jarFundsTransferred = ({
   },
 });
 
-export interface JarFundsTransfer {
+export interface JarFundsTransferPayload {
   fromJarId: number;
   toJarId: number;
   amount: number;

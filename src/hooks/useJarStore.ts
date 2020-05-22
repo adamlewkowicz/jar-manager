@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import type { JarFundsTransfer } from '../store/actions';
+import type { JarFundsTransferPayload } from '../store/actions';
 import { Selectors, Actions } from '../store';
 import { Currency } from '../types';
 
@@ -19,7 +19,7 @@ export const useJarStore = () => {
     dispatch(Actions.jarCreated({ currency, balance }));
   };
 
-  const fundsTransfer = (payload: JarFundsTransfer) => {
+  const fundsTransfer = (payload: JarFundsTransferPayload) => {
     dispatch(Actions.jarFundsTransferred(payload));
   };
 
