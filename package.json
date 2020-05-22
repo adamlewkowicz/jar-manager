@@ -1,7 +1,7 @@
 {
-  "name": "react-next-boilerplate",
+  "name": "jar-manager",
   "version": "1.0.0",
-  "description": "",
+  "description": "Jar manager",
   "main": "src/index.ts",
   "scripts": {
     "start": "next",
@@ -9,9 +9,10 @@
     "serve": "next start",
     "generate": "plop",
     "css": "tsm src --watch --nameFormat dashes",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "jest --ci --colors --verbose"
   },
-  "author": "alk831",
+  "author": "Adam Lewkowicz",
   "license": "ISC",
   "dependencies": {
     "carbon-components": "^10.11.2",
