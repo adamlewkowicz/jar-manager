@@ -3,4 +3,3 @@ export * from './useSortedTransactions';
 export * from './useQueryJarId';
 export * from './useUniqueId';
 export * from './useJarStore';
-export * from './useTimeoutBool';
