@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import type { Jar } from '../types';
 import {
   jarTransferReducer,
@@ -8,6 +8,12 @@ import {
 export const useJarTransfer = (jars: Jar[]) => {
   const [state, dispatch] = useReducer(jarTransferReducer, getInitialState(jars));
   const maxAmount = state.currentJar?.balance ?? 0;
+
+  useEffect(() => {
+    if (state.jars !== jars) {
+      dispatch({ type: 'JARS_UPDATED', payload: jars });
+    }
+  }, [jars]);
 
   const updateCurrentJarId = (jarId: string) => {
     dispatch({ type: 'CURRENT_JAR_UPDATED', payload: Number(jarId) });

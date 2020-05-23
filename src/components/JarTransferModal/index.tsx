@@ -45,7 +45,7 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
           value={String(transfer.state.currentJar?.id)}
           onChange={transfer.updateCurrentJarId}
         >
-          {props.jars.map((jar) => (
+          {transfer.state.jars.map((jar) => (
             <RadioButton
               key={jar.id}
               labelText={getJarTitle(jar)}

@@ -17,6 +17,8 @@ export const jarTransferReducer = (
   action: Action,
 ): JarTransferState => {
   switch (action.type) {
+    case 'JARS_UPDATED':
+      return getInitialState(action.payload);
     case 'CURRENT_JAR_UPDATED': {
       const currentJar = state.jars.find((jar) => jar.id === action.payload) ?? null;
 
@@ -76,6 +78,7 @@ export const getInitialState = (jars: Jar[]): JarTransferState => ({
 });
 
 type Action =
+  | { type: 'JARS_UPDATED'; payload: Jar[] }
   | {
       type: 'CURRENT_JAR_UPDATED';
       payload: number;
