@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
+import Link from 'next/link';
 import css from './index.module.scss';
 import { useQueryJarId } from '../../hooks/useQueryJarId';
-import Link from 'next/link';
 
 interface LayoutProps {
   children: ReactNode;

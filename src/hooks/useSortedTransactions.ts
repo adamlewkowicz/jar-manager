@@ -1,5 +1,5 @@
-import { Transaction, SortDir } from '../types';
 import { useMemo } from 'react';
+import { Transaction, SortDir } from '../types';
 import { SortProp } from '../components';
 import { sortCompare, getJarIdsFromTransaction } from '../utils';
 
@@ -11,11 +11,11 @@ interface SortOptions {
 export const useSortedTransactions = (
   transactions: Transaction[],
   { property, direction }: SortOptions,
-): Transaction[] => {
-  return useMemo(
+): Transaction[] =>
+  useMemo(
     () => [
       ...transactions.sort((a, b) => {
-        const numericDirection = direction == 'ASC' ? 1 : -1;
+        const numericDirection = direction === 'ASC' ? 1 : -1;
         let sortResult: number;
 
         if (property === 'jar') {
@@ -36,4 +36,3 @@ export const useSortedTransactions = (
     ],
     [transactions, property, direction],
   );
-};

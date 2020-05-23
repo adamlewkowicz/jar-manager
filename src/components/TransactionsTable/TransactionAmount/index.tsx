@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './index.module.scss';
-import { Transaction } from '../../../types';
+import type { Transaction } from '../../../types';
 import { csx } from '../../../utils';
 
 type TransactionAmountProps = {} & Transaction;

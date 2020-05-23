@@ -3,8 +3,8 @@ import {
   JAR_FUNDS_REMOVED,
   JAR_FUNDS_TRANSFERRED,
 } from '../jars/consts';
-import { Transaction, FundsTransaction, ExchangeTransaction } from '../../../types';
-import { JarAction } from '../jars/reducer';
+import type { Transaction, FundsTransaction, ExchangeTransaction } from '../../../types';
+import type { JarAction } from '../jars/reducer';
 import { generateId } from '../../../utils';
 
 type TransactionsState = Transaction[];

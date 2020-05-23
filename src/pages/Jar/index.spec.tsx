@@ -1,7 +1,9 @@
-import { AppStore, configureStore } from '../../store';
-import JarPage from './[jarId]';
+/* eslint-disable */
+import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { AppStore, configureStore } from '../../store';
+import JarPage from './[jarId]';
 import { renderSetup } from '../../../test-utils';
 
 describe('<JarPage />', () => {

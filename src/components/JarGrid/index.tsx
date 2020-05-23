@@ -1,7 +1,7 @@
 import React from 'react';
-import css from './index.module.scss';
-import { Jar } from '../../types';
 import { Tile } from 'carbon-components-react';
+import css from './index.module.scss';
+import type { Jar } from '../../types';
 import { JarLink } from '../JarLink';
 
 interface JarGridProps {
@@ -17,7 +17,7 @@ export const JarGrid = (props: JarGridProps) => (
           <p>
             Saldo: <strong>{jar.balance}</strong> {jar.currency}
           </p>
-          <p>Liczba transakcji: {jar.transactions.length}</p>
+          <p>Liczba transakcji: {jar.transactions?.length}</p>
           {jar.isDefault && <p className={css.info_default}>Domyślny</p>}
         </Tile>
       </li>

@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { Jar } from '../types';
+import type { Jar } from '../types';
 import {
   jarTransferReducer,
   getInitialState,

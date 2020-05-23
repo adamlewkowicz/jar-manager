@@ -11,7 +11,8 @@
     "css": "tsm src --watch --nameFormat dashes",
     "test": "jest",
     "test:ci": "jest --ci --colors --verbose",
-    "type-check": "tsc --noEmit && echo \"No type errors found\""
+    "type-check": "tsc --noEmit && echo \"No type errors found\"",
+    "lint": "eslint src/**"
   },
   "author": "Adam Lewkowicz",
   "license": "ISC",

@@ -5,6 +5,4 @@ interface H2Props {
   children: ReactNode;
 }
 
-export const H2 = (props: H2Props) => (
-  <h2 className={css.container}>{props.children}</h2>
-);
+export const H2 = (props: H2Props) => <h2 className={css.container}>{props.children}</h2>;

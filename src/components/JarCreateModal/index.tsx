@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NumberInput, RadioButton } from 'carbon-components-react';
-import { Currency } from '../../types';
+import type { Currency } from '../../types';
 import { RadioGroup } from '../RadioGroup';
 import { CURRENCIES } from '../../common/consts';
 import { Modal } from '../Modal';
@@ -34,10 +34,10 @@ export const JarCreateModal = (props: JarCreateModal) => {
         name="select-currency"
         title="Wybierz walutę"
         value={currency}
-        onChange={(currency) => setCurrency(currency)}
+        onChange={(newCurrency) => setCurrency(newCurrency)}
       >
-        {CURRENCIES.map((currency) => (
-          <RadioButton key={currency} labelText={currency} value={currency} />
+        {CURRENCIES.map((ccy) => (
+          <RadioButton key={ccy} labelText={ccy} value={ccy} />
         ))}
       </RadioGroup>
     </Modal>

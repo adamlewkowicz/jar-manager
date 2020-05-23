@@ -1,6 +1,7 @@
-import IndexPage from '.';
+/* eslint-disable */
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import IndexPage from '.';
 import { renderSetup } from '../../../test-utils';
 
 describe('<IndexPage />', () => {

@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { TableContainer, Table } from 'carbon-components-react';
 import css from './index.module.scss';
+
 interface ContainerProps {
   title: string;
   children: ReactNode;

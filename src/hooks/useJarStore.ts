@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import type { JarFundsTransferPayload } from '../store/actions';
 import { Selectors, Actions } from '../store';
-import { Currency } from '../types';
+import type { Currency } from '../types';
 
 export const useJarStore = () => {
   const dispatch = useDispatch();

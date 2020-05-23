@@ -1,4 +1,4 @@
-import { Jar } from '../../types';
+import type { Jar } from '../../types';
 
 interface JarTransferState {
   jars: Jar[];
@@ -17,8 +17,8 @@ export const jarTransferReducer = (
   action: Action,
 ): JarTransferState => {
   switch (action.type) {
-    case 'CURRENT_JAR_UPDATED':
-      const currentJar = state.jars.find((jar) => jar.id === action.payload);
+    case 'CURRENT_JAR_UPDATED': {
+      const currentJar = state.jars.find((jar) => jar.id === action.payload) ?? null;
 
       const targetJars = state.jars.map((jar) => {
         const isSameJar = jar.id === currentJar?.id;
@@ -37,16 +37,18 @@ export const jarTransferReducer = (
 
       return {
         ...state,
-        currentJar: currentJar,
+        currentJar,
         targetJar: defaultJar?.data ?? null,
-        targetJars: targetJars,
+        targetJars,
       };
-    case 'TARGET_JAR_UPDATED':
-      const targetJar = state.jars.find((jar) => jar.id === action.payload);
+    }
+    case 'TARGET_JAR_UPDATED': {
+      const targetJar = state.jars.find((jar) => jar.id === action.payload) ?? null;
       return {
         ...state,
-        targetJar: targetJar,
+        targetJar,
       };
+    }
     case 'AMOUNT_UPDATED':
       return {
         ...state,

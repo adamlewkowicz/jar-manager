@@ -1,4 +1,4 @@
-import { Jar, ValueOf } from '../../../types';
+import type { Jar, ValueOf } from '../../../types';
 import * as jarAction from './creators';
 import {
   JAR_CREATED,
@@ -12,13 +12,15 @@ type JarsState = Jar[];
 
 export const jarsReducer = (state: JarsState = [], action: JarAction): JarsState => {
   switch (action.type) {
-    case JAR_CREATED:
+    case JAR_CREATED: {
       const nextJar: Jar = {
         id: state.length + 1,
         isDefault: false,
         ...action.payload,
       };
+
       return [...state, nextJar];
+    }
     case JAR_FUNDS_ADDED:
       return state.map((jar) => {
         if (jar.id === action.meta.jarId) {
@@ -46,7 +48,8 @@ export const jarsReducer = (state: JarsState = [], action: JarAction): JarsState
             ...jar,
             balance: jar.balance - action.payload.amount,
           };
-        } else if (jar.id === action.meta.toJarId) {
+        }
+        if (jar.id === action.meta.toJarId) {
           return {
             ...jar,
             balance: jar.balance + action.payload.amount,

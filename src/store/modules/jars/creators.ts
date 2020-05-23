@@ -5,7 +5,7 @@ import {
   JAR_FUNDS_REMOVED,
   JAR_DEFAULT_UPDATED,
 } from './consts';
-import { Currency } from '../../../types';
+import type { Currency } from '../../../types';
 
 export const jarCreated = (data: { currency: Currency; balance: number }) => ({
   type: JAR_CREATED,

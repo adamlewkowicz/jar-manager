@@ -1,4 +1,4 @@
-import { AppState } from './modules';
+import type { AppState } from './modules';
 
 export const initialState: Partial<AppState> = {
   jars: [

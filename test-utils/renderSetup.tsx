@@ -1,9 +1,11 @@
+/* eslint-disable */
+import React from 'react';
 import { render } from '@testing-library/react';
-import { AppStore, configureStore } from '../src/store';
 import { createRouter } from 'next/router';
 import { RouterContext } from 'next/dist/next-server/lib/router-context';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Provider as StoreProvider } from 'react-redux';
+import { AppStore, configureStore } from '../src/store';
 
 interface Options<Q extends {}> {
   query?: Q;

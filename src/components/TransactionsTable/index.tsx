@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Transaction, SortDir } from '../../types';
+import type { Transaction, SortDir } from '../../types';
 import { formatDate } from '../../utils';
 import { TransactionAmount } from './TransactionAmount';
 import { JarLinks } from './JarLinks';

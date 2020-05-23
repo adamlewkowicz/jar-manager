@@ -1,5 +1,5 @@
-import { AppState } from '..';
 import { createSelector } from 'reselect';
+import type { AppState } from '..';
 import { getTransactions } from '../transactions/selectors';
 import { getJarIdsFromTransaction } from '../../../utils';
 

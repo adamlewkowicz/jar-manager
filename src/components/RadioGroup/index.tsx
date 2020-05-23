@@ -9,18 +9,16 @@ interface RadioGroupProps<T extends string> {
   name: string;
 }
 
-export const RadioGroup = <T extends string>(props: RadioGroupProps<T>) => {
-  return (
-    <FormGroup legendText={props.title} style={{ marginTop: 20 }}>
-      <RadioButtonGroup
-        orientation="vertical"
-        labelPosition="right"
-        name={props.name}
-        valueSelected={props.value}
-        onChange={(value) => props.onChange(value as T)}
-      >
-        {props.children}
-      </RadioButtonGroup>
-    </FormGroup>
-  );
-};
+export const RadioGroup = <T extends string>(props: RadioGroupProps<T>) => (
+  <FormGroup legendText={props.title} style={{ marginTop: 20 }}>
+    <RadioButtonGroup
+      orientation="vertical"
+      labelPosition="right"
+      name={props.name}
+      valueSelected={props.value}
+      onChange={(value) => props.onChange(value as T)}
+    >
+      {props.children}
+    </RadioButtonGroup>
+  </FormGroup>
+);

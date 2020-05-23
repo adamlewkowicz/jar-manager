@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import css from './index.module.scss';
 import { Form, Button } from 'carbon-components-react';
+import css from './index.module.scss';
 import { NumberInput } from '../NumberInput';
-import { Jar } from '../../types';
+import type { Jar } from '../../types';
 
 interface JarFundsActionsProps {
   currentJar: Jar;

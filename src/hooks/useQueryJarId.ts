@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-export const useQueryJarId = (): number => {
+export const useQueryJarId = (): number | null => {
   const router = useRouter();
   const { jarId } = router.query;
   const parsedJarId = Number(jarId);

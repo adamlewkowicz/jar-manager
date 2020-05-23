@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
+import { Toggle } from 'carbon-components-react';
 import css from './index.module.scss';
 import { H2, JarFundsActions, TransactionsTable } from '../../components';
 import { useJarStore, useQueryJarId } from '../../hooks';
-import { Toggle } from 'carbon-components-react';
 
 export const JarPage = () => {
   const jarId = useQueryJarId();

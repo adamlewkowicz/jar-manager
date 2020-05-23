@@ -1,5 +1,6 @@
-import { generateId, getJarTitle, csx } from './';
-import { Jar } from '../types';
+/* eslint-disable */
+import { generateId, getJarTitle, csx } from '.';
+import type { Jar } from '../types';
 import { sortCompare, getJarIdsFromTransaction } from './common';
 
 describe('Utils 🧰', () => {
@@ -19,7 +20,7 @@ describe('Utils 🧰', () => {
         currency: 'PLN',
         isDefault: false,
       };
-      expect(getJarTitle(jarFake)).toMatchInlineSnapshot(`"Słoik 1 - 100 PLN"`);
+      expect(getJarTitle(jarFake)).toMatchInlineSnapshot('"Słoik 1 - 100 PLN"');
     });
   });
   describe('csx()', () => {

@@ -1,10 +1,8 @@
-import React, { useRef } from 'react';
-import css from './index.module.scss';
+import React from 'react';
 import {
   NumberInput as CarbonNumberInput,
   NumberInputProps as CarbonNumberInputProps,
 } from 'carbon-components-react';
-import { useUniqueId } from '../../hooks';
 
 interface NumberInputProps extends Omit<CarbonNumberInputProps, 'onChange' | 'ref'> {
   max: number;
@@ -13,12 +11,12 @@ interface NumberInputProps extends Omit<CarbonNumberInputProps, 'onChange' | 're
 
 export const NumberInput = ({ onChange, value, ...props }: NumberInputProps) => {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(event.target.value);
+    const parsedValue = Number(event.target.value);
 
-    if (Number.isNaN(value)) {
+    if (Number.isNaN(parsedValue)) {
       onChange(0);
     }
-    onChange(value);
+    onChange(parsedValue);
   };
 
   return (

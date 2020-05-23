@@ -30,5 +30,12 @@ module.exports = {
     'import/no-unresolved': 0,
     'react/prop-types': 0,
     'import/extensions': 0,
+    'no-use-before-define': 0,
+    'class-methods-use-this': 0,
+    'no-plusplus': 0,
+    'consistent-return': 0,
+    'default-case': 0,
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 2,
   },
 };
