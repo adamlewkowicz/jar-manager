@@ -12,7 +12,7 @@
     "test": "jest",
     "test:ci": "jest --ci --colors --verbose",
     "type-check": "tsc --noEmit && echo \"No type errors found\"",
-    "lint": "eslint src/**"
+    "lint": "eslint src/** --no-error-on-unmatched-pattern"
   },
   "author": "Adam Lewkowicz",
   "license": "ISC",
