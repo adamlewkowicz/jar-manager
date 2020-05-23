@@ -16,7 +16,7 @@ export const renderSetup = <Q extends {}>(
   ui: ReactNode,
   { query, store }: Options<Q> = {},
 ) => {
-  const router = createRouter('', query, '', {
+  const router = createRouter('', query as any, '', {
     initialProps: {},
     pageLoader: jest.fn(),
     App: jest.fn(),

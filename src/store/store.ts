@@ -13,7 +13,7 @@ export const configureStore = (customInitialState?: Partial<AppState>): AppStore
   });
   /* eslint-enable */
 
-  return store;
+  return (store as unknown) as AppStore;
 };
 
 export const store = configureStore(initialState);

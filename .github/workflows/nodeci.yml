@@ -28,5 +28,5 @@ jobs:
         env:
           CI: true
 
-      - name: Static analysis
+      - name: Static code analysis
         run: npm run lint

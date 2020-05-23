@@ -17,10 +17,16 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
   const isDisabled = transfer.state.currentJar === null || transfer.state.amount === 0;
 
   const handleTransfer = () => {
+    const { currentJar, targetJar, amount } = transfer.state;
+
+    if (!currentJar || !targetJar || amount === 0) {
+      return;
+    }
+
     props.onFundsTransfer({
-      fromJarId: transfer.state.currentJar.id,
-      toJarId: transfer.state.targetJar.id,
-      amount: transfer.state.amount,
+      fromJarId: currentJar.id,
+      toJarId: targetJar.id,
+      amount,
     });
   };
 

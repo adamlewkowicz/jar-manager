@@ -27,8 +27,6 @@ describe('<IndexPage />', () => {
       });
       userEvent.click(createJarButton);
 
-      // const fundsText = screen.queryByText(`${fundsFake} PLN`);
-
       expect(screen.getAllByRole('listitem')).toHaveLength(1);
     });
   });
