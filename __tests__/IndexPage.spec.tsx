@@ -1,8 +1,10 @@
 /* eslint-disable */
+import React from 'react';
+import { describe, it } from '@jest/globals';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import IndexPage from '.';
-import { renderSetup } from '../../../test-utils';
+import IndexPage from '../src/pages/index/index';
+import { renderSetup } from '../test-utils';
 
 describe('<IndexPage />', () => {
   describe('when creates new jar', () => {

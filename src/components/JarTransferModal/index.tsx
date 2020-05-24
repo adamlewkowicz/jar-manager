@@ -84,13 +84,6 @@ export const JarTransferModal = (props: JarTransferModalProps) => {
           title="Możesz przelać środki jedynie na słoik o innym id, oraz o takiej samej walucie jak wybrany."
           hideCloseButton
         />
-        {transfer.state.targetJar === null && (
-          <InlineNotification
-            kind="warning"
-            title="Nie wybrałeś słoika na który chcesz wpłacić. Kwota zostanie rozdzielona pomiędzy dostępne słoiki."
-            hideCloseButton
-          />
-        )}
       </Modal>
     </>
   );

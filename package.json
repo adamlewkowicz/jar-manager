@@ -6,6 +6,8 @@
   "scripts": {
     "start": "next",
     "build": "next build",
+    "export": "next export",
+    "static": "next build && next export",
     "serve": "next start",
     "generate": "plop",
     "css": "tsm src --watch --nameFormat dashes",
@@ -41,6 +43,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-react": "^7.20.0",
+    "ignore-loader": "^0.1.2",
     "jest": "^26.0.1",
     "plop": "^2.6.0",
     "postcss-import": "^12.0.1",

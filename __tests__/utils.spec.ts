@@ -1,7 +1,8 @@
 /* eslint-disable */
-import { generateId, getJarTitle, csx } from '.';
-import type { Jar } from '../types';
-import { sortCompare, getJarIdsFromTransaction } from './common';
+import { describe, it } from '@jest/globals';
+import { generateId, getJarTitle, csx } from '../src/utils';
+import type { Jar } from '../src/types';
+import { sortCompare, getJarIdsFromTransaction } from '../src/utils/common';
 
 describe('Utils 🧰', () => {
   describe('generateId()', () => {

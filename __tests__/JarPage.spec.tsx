@@ -1,10 +1,11 @@
 /* eslint-disable */
 import React from 'react';
+import { describe, beforeEach, it } from '@jest/globals';
 import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { AppStore, configureStore } from '../../store';
-import JarPage from './[jarId]';
-import { renderSetup } from '../../../test-utils';
+import { AppStore, configureStore } from '../src/store';
+import JarPage from '../src/pages/jar/[jarId]';
+import { renderSetup } from '../test-utils';
 
 describe('<JarPage />', () => {
   const jarMock = {

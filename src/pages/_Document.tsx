@@ -17,7 +17,7 @@ class Document extends NativeDocument {
     return (
       <Html>
         <Head>
-          <title>Manager słoików</title>
+          <title>Jar manager</title>
           <meta
             name="description"
             content="Manager do zarządzania budżetem w postaci słoików"
