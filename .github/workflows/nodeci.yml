@@ -20,13 +20,13 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Type check
-        run: npm run type-check
-
       - name: Run tests
         run: npm run test:ci
         env:
           CI: true
+
+      - name: Type check
+        run: npm run type-check
 
       - name: Static code analysis
         run: npm run lint
