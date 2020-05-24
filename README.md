@@ -1,4 +1,4 @@
-# [jar-manager]() 🍯💸
+# [jar-manager](https://expenses-manager-h5ahzxzfs.now.sh/) 🍯💸
 
 Manager do zarządzania budżetem w postaci słoików
 
