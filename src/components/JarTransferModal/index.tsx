@@ -5,7 +5,7 @@ import { Jar } from '../../types';
 import { RadioGroup } from '../RadioGroup';
 import { Modal } from '../Modal';
 import { getJarTitle } from '../../utils';
-import { useJarTransfer } from '../../hooks/useJarTransfer';
+import { useJarTransfer } from '../../hooks';
 
 interface JarTransferModalProps {
   jars: Jar[];

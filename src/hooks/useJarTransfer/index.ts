@@ -1,12 +1,9 @@
 import { useReducer, useEffect } from 'react';
-import type { Jar } from '../types';
-import {
-  jarTransferReducer,
-  getInitialState,
-} from '../components/JarTransferModal/reducer';
+import type { Jar } from '../../types';
+import { jarTransferReducer, getInitialState } from './reducer';
 
 export const useJarTransfer = (jars: Jar[]) => {
-  const [state, dispatch] = useReducer(jarTransferReducer, getInitialState(jars));
+  const [state, dispatch] = useReducer(jarTransferReducer, jars, getInitialState);
   const maxAmount = state.currentJar?.balance ?? 0;
 
   useEffect(() => {
