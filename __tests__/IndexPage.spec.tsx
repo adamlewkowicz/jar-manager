@@ -3,7 +3,7 @@ import React from 'react';
 import { describe, it } from '@jest/globals';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import IndexPage from '../src/pages/index/index';
+import { IndexPage } from '../src/pages/index/index';
 import { renderSetup } from '../test-utils';
 
 describe('<IndexPage />', () => {
