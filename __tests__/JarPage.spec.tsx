@@ -4,7 +4,7 @@ import { describe, beforeEach, it } from '@jest/globals';
 import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AppStore, configureStore } from '../src/store';
-import { JarPage } from '../src/pages/jar/[jarId]';
+import { JarPage } from '../src/pages/Jar/[jarId]';
 import { renderSetup } from '../test-utils';
 
 describe('<JarPage />', () => {
